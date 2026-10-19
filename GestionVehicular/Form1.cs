@@ -22,10 +22,16 @@ namespace GestionVehicular
         private void Form1_Load(object sender, EventArgs e)
         {
             // Configuración inicial de columnas del DataGridView
-            dgvVehiculos.ColumnCount = 3;
+            dgvVehiculos.ColumnCount = 5;
             dgvVehiculos.Columns[0].Name = "Placa";
             dgvVehiculos.Columns[1].Name = "ID";
-            dgvVehiculos.Columns[2].Name = "Horas";
+            dgvVehiculos.Columns[2].Name = "Tipo de Vehiculo";
+            dgvVehiculos.Columns[3].Name = "Hora de Ingreso";
+            dgvVehiculos.Columns[4].Name = "Horas Estacionado";
+            foreach (DataGridViewColumn columna in dgvVehiculos.Columns)
+            {
+                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
         private void ActualizarGrid()
@@ -34,7 +40,7 @@ namespace GestionVehicular
             Vehiculo[] lista = gestor.ObtenerVehiculos(out int total);
             for (int i = 0; i < total; i++)
             {
-                dgvVehiculos.Rows.Add(lista[i].Placa, lista[i].ID, lista[i].HorasEstacionado);
+                dgvVehiculos.Rows.Add(lista[i].Placa, lista[i].ID, lista[i].TipoVehiculo, lista[i].HoraIngreso.ToString("hh:mm tt"), $"{lista[i].HorasEstacionado:F2} hrs");
             }
         }
 
@@ -42,6 +48,7 @@ namespace GestionVehicular
         {
             string placa = txtPlaca.Text.Trim();
             string id = txtID.Text.Trim();
+            string tipo = txtTipo.Text.Trim().ToUpper();
             placa = placa.ToUpper();
             id = id.ToUpper();
 
@@ -65,24 +72,22 @@ namespace GestionVehicular
                 return;
             }
 
-
-            if (double.TryParse(txtHoras.Text, out double horas))
+            if (!Validaciones.ValidarTipo(tipo))
             {
-                bool registrado = gestor.Registrar(placa, id, horas);
-                if (registrado)
-                {
-                    MessageBox.Show("Vehículo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ActualizarGrid();
-                    LimpiarCampos();
-                }
-                else
-                {
-                    MessageBox.Show("El estacionamiento está lleno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("El tipo de vehiculo debe ser un auto o una moto", "Tipo de Vehiculo invalido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTipo.Focus();
+                return;
+            }
+            bool registrado = gestor.Registrar(placa, id, tipo);
+            if (registrado)
+            {
+                MessageBox.Show("Vehículo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ActualizarGrid();
+                LimpiarCampos();
             }
             else
             {
-                MessageBox.Show("Ingrese un valor válido para las horas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El estacionamiento está lleno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -93,7 +98,7 @@ namespace GestionVehicular
             if (v != null)
             {
                 txtID.Text = v.ID;
-                txtHoras.Text = v.HorasEstacionado.ToString();
+                txtTipo.Text = v.TipoVehiculo.ToString();
                 MessageBox.Show("¡Vehículo encontrado!", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -114,19 +119,12 @@ namespace GestionVehicular
             MessageBox.Show("Vehículos ordenados por método Burbuja.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void btnSeleccion_Click(object sender, EventArgs e)
-        {
-            gestor.OrdenarSeleccion();
-            ActualizarGrid();
-            MessageBox.Show("Vehículos ordenados por método Selección.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void btnMayorTiempo_Click(object sender, EventArgs e)
         {
             Vehiculo v = gestor.MayorTiempo();
             if (v != null)
             {
-                MessageBox.Show($"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nID: {v.ID}\nHoras: {v.HorasEstacionado}", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nID: {v.ID}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -139,7 +137,7 @@ namespace GestionVehicular
             Vehiculo v = gestor.MenorTiempo();
             if (v != null)
             {
-                MessageBox.Show($"Vehículo con Menor Tiempo:\nPlaca: {v.Placa}\nID: {v.ID}\nHoras: {v.HorasEstacionado}", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Vehículo con Menor Tiempo:\nPlaca: {v.Placa}\nID: {v.ID}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -155,7 +153,7 @@ namespace GestionVehicular
         {
             txtPlaca.Clear();
             txtID.Clear();
-            txtHoras.Clear();
+            txtTipo.Clear();
             txtPlaca.Focus();
         }
     }

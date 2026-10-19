@@ -53,5 +53,14 @@ namespace GestionVehicular
             }
             return true;
         }
+        public static bool ValidarTipo(string tipo)
+        {
+            tipo = tipo.Trim().ToUpper();
+            if (tipo != "AUTO" && tipo != "MOTO")
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

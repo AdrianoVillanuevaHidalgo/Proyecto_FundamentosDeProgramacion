@@ -33,17 +33,16 @@ namespace GestionVehicular
         {
             this.lblTitulo = new System.Windows.Forms.Label();
             this.gbDatos = new System.Windows.Forms.GroupBox();
-            this.txtHoras = new System.Windows.Forms.TextBox();
+            this.txtTipo = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
             this.txtPlaca = new System.Windows.Forms.TextBox();
-            this.lblHoras = new System.Windows.Forms.Label();
+            this.lblTipo = new System.Windows.Forms.Label();
             this.lblID = new System.Windows.Forms.Label();
             this.lblPlaca = new System.Windows.Forms.Label();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnMostrar = new System.Windows.Forms.Button();
             this.btnBurbuja = new System.Windows.Forms.Button();
-            this.btnSeleccion = new System.Windows.Forms.Button();
             this.btnMayorTiempo = new System.Windows.Forms.Button();
             this.btnMenorTiempo = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -64,26 +63,26 @@ namespace GestionVehicular
             // 
             // gbDatos
             // 
-            this.gbDatos.Controls.Add(this.txtHoras);
+            this.gbDatos.Controls.Add(this.txtTipo);
             this.gbDatos.Controls.Add(this.txtID);
             this.gbDatos.Controls.Add(this.txtPlaca);
-            this.gbDatos.Controls.Add(this.lblHoras);
+            this.gbDatos.Controls.Add(this.lblTipo);
             this.gbDatos.Controls.Add(this.lblID);
             this.gbDatos.Controls.Add(this.lblPlaca);
             this.gbDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbDatos.Location = new System.Drawing.Point(81, 81);
             this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(276, 130);
+            this.gbDatos.Size = new System.Drawing.Size(276, 131);
             this.gbDatos.TabIndex = 1;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Datos del Vehículo";
             // 
-            // txtHoras
+            // txtTipo
             // 
-            this.txtHoras.Location = new System.Drawing.Point(159, 88);
-            this.txtHoras.Name = "txtHoras";
-            this.txtHoras.Size = new System.Drawing.Size(100, 22);
-            this.txtHoras.TabIndex = 5;
+            this.txtTipo.Location = new System.Drawing.Point(159, 88);
+            this.txtTipo.Name = "txtTipo";
+            this.txtTipo.Size = new System.Drawing.Size(100, 22);
+            this.txtTipo.TabIndex = 5;
             // 
             // txtID
             // 
@@ -99,23 +98,23 @@ namespace GestionVehicular
             this.txtPlaca.Size = new System.Drawing.Size(100, 22);
             this.txtPlaca.TabIndex = 3;
             // 
-            // lblHoras
+            // lblTipo
             // 
-            this.lblHoras.AutoSize = true;
-            this.lblHoras.Location = new System.Drawing.Point(6, 94);
-            this.lblHoras.Name = "lblHoras";
-            this.lblHoras.Size = new System.Drawing.Size(140, 16);
-            this.lblHoras.TabIndex = 2;
-            this.lblHoras.Text = "Horas Estacionado";
+            this.lblTipo.AutoSize = true;
+            this.lblTipo.Location = new System.Drawing.Point(6, 94);
+            this.lblTipo.Name = "lblTipo";
+            this.lblTipo.Size = new System.Drawing.Size(125, 16);
+            this.lblTipo.TabIndex = 2;
+            this.lblTipo.Text = "Tipo de Vehiculo";
             // 
             // lblID
             // 
             this.lblID.AutoSize = true;
             this.lblID.Location = new System.Drawing.Point(7, 60);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(104, 16);
+            this.lblID.Size = new System.Drawing.Size(134, 16);
             this.lblID.TabIndex = 1;
-            this.lblID.Text = "Identidicación";
+            this.lblID.Text = "Codigo de Alumno";
             // 
             // lblPlaca
             // 
@@ -162,31 +161,20 @@ namespace GestionVehicular
             // btnBurbuja
             // 
             this.btnBurbuja.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBurbuja.Location = new System.Drawing.Point(81, 217);
+            this.btnBurbuja.Location = new System.Drawing.Point(363, 218);
             this.btnBurbuja.Name = "btnBurbuja";
-            this.btnBurbuja.Size = new System.Drawing.Size(224, 43);
+            this.btnBurbuja.Size = new System.Drawing.Size(176, 43);
             this.btnBurbuja.TabIndex = 5;
-            this.btnBurbuja.Text = "ORDENAR BURBUJA";
+            this.btnBurbuja.Text = "Ordenar";
             this.btnBurbuja.UseVisualStyleBackColor = true;
             this.btnBurbuja.Click += new System.EventHandler(this.btnBurbuja_Click);
-            // 
-            // btnSeleccion
-            // 
-            this.btnSeleccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSeleccion.Location = new System.Drawing.Point(315, 217);
-            this.btnSeleccion.Name = "btnSeleccion";
-            this.btnSeleccion.Size = new System.Drawing.Size(224, 43);
-            this.btnSeleccion.TabIndex = 6;
-            this.btnSeleccion.Text = "ORDENAR SELECCIÓN";
-            this.btnSeleccion.UseVisualStyleBackColor = true;
-            this.btnSeleccion.Click += new System.EventHandler(this.btnSeleccion_Click);
             // 
             // btnMayorTiempo
             // 
             this.btnMayorTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMayorTiempo.Location = new System.Drawing.Point(81, 266);
+            this.btnMayorTiempo.Location = new System.Drawing.Point(81, 267);
             this.btnMayorTiempo.Name = "btnMayorTiempo";
-            this.btnMayorTiempo.Size = new System.Drawing.Size(146, 43);
+            this.btnMayorTiempo.Size = new System.Drawing.Size(235, 43);
             this.btnMayorTiempo.TabIndex = 7;
             this.btnMayorTiempo.Text = "MAYOR TIEMPO";
             this.btnMayorTiempo.UseVisualStyleBackColor = true;
@@ -195,9 +183,9 @@ namespace GestionVehicular
             // btnMenorTiempo
             // 
             this.btnMenorTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenorTiempo.Location = new System.Drawing.Point(240, 266);
+            this.btnMenorTiempo.Location = new System.Drawing.Point(322, 267);
             this.btnMenorTiempo.Name = "btnMenorTiempo";
-            this.btnMenorTiempo.Size = new System.Drawing.Size(146, 43);
+            this.btnMenorTiempo.Size = new System.Drawing.Size(217, 43);
             this.btnMenorTiempo.TabIndex = 8;
             this.btnMenorTiempo.Text = "MENOR TIEMPO";
             this.btnMenorTiempo.UseVisualStyleBackColor = true;
@@ -206,9 +194,9 @@ namespace GestionVehicular
             // btnLimpiar
             // 
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.Location = new System.Drawing.Point(393, 266);
+            this.btnLimpiar.Location = new System.Drawing.Point(81, 217);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(146, 43);
+            this.btnLimpiar.Size = new System.Drawing.Size(276, 43);
             this.btnLimpiar.TabIndex = 9;
             this.btnLimpiar.Text = "LIMPIAR";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -223,7 +211,6 @@ namespace GestionVehicular
             this.dgvVehiculos.RowTemplate.Height = 24;
             this.dgvVehiculos.Size = new System.Drawing.Size(458, 169);
             this.dgvVehiculos.TabIndex = 10;
-            this.dgvVehiculos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehiculos_CellContentClick);
             // 
             // Form1
             // 
@@ -234,7 +221,6 @@ namespace GestionVehicular
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnMenorTiempo);
             this.Controls.Add(this.btnMayorTiempo);
-            this.Controls.Add(this.btnSeleccion);
             this.Controls.Add(this.btnBurbuja);
             this.Controls.Add(this.btnMostrar);
             this.Controls.Add(this.btnBuscar);
@@ -263,15 +249,14 @@ namespace GestionVehicular
         private System.Windows.Forms.GroupBox gbDatos;
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.TextBox txtPlaca;
-        private System.Windows.Forms.Label lblHoras;
+        private System.Windows.Forms.Label lblTipo;
         private System.Windows.Forms.Label lblID;
         private System.Windows.Forms.Label lblPlaca;
-        private System.Windows.Forms.TextBox txtHoras;
+        private System.Windows.Forms.TextBox txtTipo;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnMostrar;
         private System.Windows.Forms.Button btnBurbuja;
-        private System.Windows.Forms.Button btnSeleccion;
         private System.Windows.Forms.Button btnMayorTiempo;
         private System.Windows.Forms.Button btnMenorTiempo;
         private System.Windows.Forms.Button btnLimpiar;

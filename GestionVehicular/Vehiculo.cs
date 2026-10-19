@@ -10,14 +10,24 @@ namespace GestionVehicular
     {
         public string Placa { get; set; }
         public string ID { get; set; }
-        public double HorasEstacionado { get; set; }
+        public string TipoVehiculo { get; set; }
+        public DateTime HoraIngreso { get; set; }
 
         // Constructor
-        public Vehiculo(string placa, string id, double horasEstacionado)
+        public Vehiculo(string placa, string id, string tipo)
         {
             Placa = placa;
             ID = id;
-            HorasEstacionado = horasEstacionado;
+            TipoVehiculo = tipo;
+            HoraIngreso = DateTime.Now;
+        }
+        public double HorasEstacionado
+        {
+            get
+            {
+                TimeSpan diferencia = DateTime.Now - HoraIngreso;
+                return diferencia.TotalHours;
+            }
         }
     }
 }

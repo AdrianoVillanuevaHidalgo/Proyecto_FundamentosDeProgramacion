@@ -19,11 +19,11 @@ namespace GestionVehicular
         }
 
         // Registrar vehículo
-        public bool Registrar(string placa, string id, double horas)
+        public bool Registrar(string placa, string id, string tipo)
         {
             if (cantidad < capacidadMaxima)
             {
-                vehiculos[cantidad] = new Vehiculo(placa, id, horas);
+                vehiculos[cantidad] = new Vehiculo(placa, id, tipo);
                 cantidad++;
                 return true;
             }
