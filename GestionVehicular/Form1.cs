@@ -43,11 +43,28 @@ namespace GestionVehicular
             string placa = txtPlaca.Text.Trim();
             string id = txtID.Text.Trim();
 
-            if (string.IsNullOrEmpty(placa) || string.IsNullOrEmpty(id))
+            if (Validaciones.EntradaVacia(placa) || Validaciones.EntradaVacia(id))
             {
                 MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            if (!Validaciones.ValidarPlaca(placa))
+            {
+                MessageBox.Show("La placa debe tener 3 letras seguidas de 3 números (ejemplo: BTS419)", "Placa inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPlaca.Focus();
+                return;
+            }
+
+            if (!Validaciones.ValidarID(id))
+            {
+                MessageBox.Show("El ID debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "ID inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtID.Focus();
+                return;
+            }
+
+            placa = placa.ToUpper();
+            id = id.ToUpper();
 
             if (double.TryParse(txtHoras.Text, out double horas))
             {
