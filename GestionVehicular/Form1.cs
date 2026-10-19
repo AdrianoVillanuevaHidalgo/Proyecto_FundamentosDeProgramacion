@@ -107,7 +107,7 @@ namespace GestionVehicular
             }
         }
 
-        private void btnMostrar_Click(object sender, EventArgs e)
+        private void btnActualizar_Click(object sender, EventArgs e)
         {
             ActualizarGrid();
         }

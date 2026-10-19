@@ -41,12 +41,13 @@ namespace GestionVehicular
             this.lblPlaca = new System.Windows.Forms.Label();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnMostrar = new System.Windows.Forms.Button();
+            this.btnActualizar = new System.Windows.Forms.Button();
             this.btnBurbuja = new System.Windows.Forms.Button();
             this.btnMayorTiempo = new System.Windows.Forms.Button();
             this.btnMenorTiempo = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dgvVehiculos = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.gbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +64,7 @@ namespace GestionVehicular
             // 
             // gbDatos
             // 
+            this.gbDatos.Controls.Add(this.label1);
             this.gbDatos.Controls.Add(this.txtTipo);
             this.gbDatos.Controls.Add(this.txtID);
             this.gbDatos.Controls.Add(this.txtPlaca);
@@ -147,16 +149,16 @@ namespace GestionVehicular
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // btnMostrar
+            // btnActualizar
             // 
-            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrar.Location = new System.Drawing.Point(363, 169);
-            this.btnMostrar.Name = "btnMostrar";
-            this.btnMostrar.Size = new System.Drawing.Size(176, 43);
-            this.btnMostrar.TabIndex = 4;
-            this.btnMostrar.Text = "Mostrar";
-            this.btnMostrar.UseVisualStyleBackColor = true;
-            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.Location = new System.Drawing.Point(363, 169);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(176, 43);
+            this.btnActualizar.TabIndex = 4;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // btnBurbuja
             // 
@@ -176,7 +178,7 @@ namespace GestionVehicular
             this.btnMayorTiempo.Name = "btnMayorTiempo";
             this.btnMayorTiempo.Size = new System.Drawing.Size(235, 43);
             this.btnMayorTiempo.TabIndex = 7;
-            this.btnMayorTiempo.Text = "MAYOR TIEMPO";
+            this.btnMayorTiempo.Text = "Mayor Tiempo";
             this.btnMayorTiempo.UseVisualStyleBackColor = true;
             this.btnMayorTiempo.Click += new System.EventHandler(this.btnMayorTiempo_Click);
             // 
@@ -187,7 +189,7 @@ namespace GestionVehicular
             this.btnMenorTiempo.Name = "btnMenorTiempo";
             this.btnMenorTiempo.Size = new System.Drawing.Size(217, 43);
             this.btnMenorTiempo.TabIndex = 8;
-            this.btnMenorTiempo.Text = "MENOR TIEMPO";
+            this.btnMenorTiempo.Text = "Menor Tiempo";
             this.btnMenorTiempo.UseVisualStyleBackColor = true;
             this.btnMenorTiempo.Click += new System.EventHandler(this.btnMenorTiempo_Click);
             // 
@@ -198,7 +200,7 @@ namespace GestionVehicular
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(276, 43);
             this.btnLimpiar.TabIndex = 9;
-            this.btnLimpiar.Text = "LIMPIAR";
+            this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
@@ -212,6 +214,15 @@ namespace GestionVehicular
             this.dgvVehiculos.Size = new System.Drawing.Size(458, 169);
             this.dgvVehiculos.TabIndex = 10;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 112);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 16);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "(Auto/Moto)";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -222,13 +233,13 @@ namespace GestionVehicular
             this.Controls.Add(this.btnMenorTiempo);
             this.Controls.Add(this.btnMayorTiempo);
             this.Controls.Add(this.btnBurbuja);
-            this.Controls.Add(this.btnMostrar);
+            this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.gbDatos);
             this.Controls.Add(this.lblTitulo);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Sistema de Control de Estacionamiento";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbDatos.ResumeLayout(false);
             this.gbDatos.PerformLayout();
@@ -254,12 +265,13 @@ namespace GestionVehicular
         private System.Windows.Forms.TextBox txtTipo;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.Button btnMostrar;
+        private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Button btnBurbuja;
         private System.Windows.Forms.Button btnMayorTiempo;
         private System.Windows.Forms.Button btnMenorTiempo;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.DataGridView dgvVehiculos;
+        private Label label1;
     }
 }
 
