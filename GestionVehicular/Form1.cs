@@ -32,6 +32,7 @@ namespace GestionVehicular
             {
                 columna.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+            ActualizarGrid();
         }
 
         private void ActualizarGrid()
@@ -42,6 +43,7 @@ namespace GestionVehicular
             {
                 dgvVehiculos.Rows.Add(lista[i].Placa, lista[i].ID, lista[i].TipoVehiculo, lista[i].HoraIngreso.ToString("hh:mm tt"), $"{lista[i].HorasEstacionado:F2} hrs");
             }
+            lblAforo.Text = $"Aforo Disponible: {gestor.AforoDisponible} de {gestor.capacidadMaxima} espacios.";
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -116,7 +118,7 @@ namespace GestionVehicular
         {
             gestor.OrdenarBurbuja();
             ActualizarGrid();
-            MessageBox.Show("Vehículos ordenados por método Burbuja.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Vehículos ordenados por hora.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnMayorTiempo_Click(object sender, EventArgs e)

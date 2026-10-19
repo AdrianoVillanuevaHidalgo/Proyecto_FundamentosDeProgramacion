@@ -33,6 +33,7 @@ namespace GestionVehicular
         {
             this.lblTitulo = new System.Windows.Forms.Label();
             this.gbDatos = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtTipo = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
             this.txtPlaca = new System.Windows.Forms.TextBox();
@@ -47,7 +48,7 @@ namespace GestionVehicular
             this.btnMenorTiempo = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dgvVehiculos = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblAforo = new System.Windows.Forms.Label();
             this.gbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).BeginInit();
             this.SuspendLayout();
@@ -78,6 +79,15 @@ namespace GestionVehicular
             this.gbDatos.TabIndex = 1;
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Datos del Vehículo";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 112);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 16);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "(Auto/Moto)";
             // 
             // txtTipo
             // 
@@ -214,20 +224,22 @@ namespace GestionVehicular
             this.dgvVehiculos.Size = new System.Drawing.Size(458, 169);
             this.dgvVehiculos.TabIndex = 10;
             // 
-            // label1
+            // lblAforo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 112);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 16);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "(Auto/Moto)";
+            this.lblAforo.AutoSize = true;
+            this.lblAforo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAforo.Location = new System.Drawing.Point(52, 43);
+            this.lblAforo.Name = "lblAforo";
+            this.lblAforo.Size = new System.Drawing.Size(178, 25);
+            this.lblAforo.TabIndex = 11;
+            this.lblAforo.Text = "Aforo Disponible:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 533);
+            this.Controls.Add(this.lblAforo);
             this.Controls.Add(this.dgvVehiculos);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnMenorTiempo);
@@ -272,6 +284,7 @@ namespace GestionVehicular
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.DataGridView dgvVehiculos;
         private Label label1;
+        private Label lblAforo;
     }
 }
 
