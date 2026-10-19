@@ -240,7 +240,6 @@ namespace GestionVehicular
 
         private void dgvVehiculos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            throw new NotImplementedException();
         }
 
         #endregion
