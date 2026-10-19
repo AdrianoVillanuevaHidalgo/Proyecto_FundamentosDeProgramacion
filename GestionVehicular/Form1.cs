@@ -42,6 +42,8 @@ namespace GestionVehicular
         {
             string placa = txtPlaca.Text.Trim();
             string id = txtID.Text.Trim();
+            placa = placa.ToUpper();
+            id = id.ToUpper();
 
             if (Validaciones.EntradaVacia(placa) || Validaciones.EntradaVacia(id))
             {
@@ -63,8 +65,6 @@ namespace GestionVehicular
                 return;
             }
 
-            placa = placa.ToUpper();
-            id = id.ToUpper();
 
             if (double.TryParse(txtHoras.Text, out double horas))
             {
