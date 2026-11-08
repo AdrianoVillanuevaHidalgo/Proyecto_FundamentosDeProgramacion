@@ -24,7 +24,7 @@ namespace GestionVehicular
             // Configuración inicial de columnas del DataGridView
             dgvVehiculos.ColumnCount = 5;
             dgvVehiculos.Columns[0].Name = "Placa";
-            dgvVehiculos.Columns[1].Name = "ID";
+            dgvVehiculos.Columns[1].Name = "Codigo";
             dgvVehiculos.Columns[2].Name = "Tipo de Vehiculo";
             dgvVehiculos.Columns[3].Name = "Hora de Ingreso";
             dgvVehiculos.Columns[4].Name = "Horas Estacionado";
@@ -49,12 +49,12 @@ namespace GestionVehicular
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             string placa = txtPlaca.Text.Trim();
-            string id = txtID.Text.Trim();
+            string codigo = txtCodigo.Text.Trim();
             string tipo = txtTipo.Text.Trim().ToUpper();
             placa = placa.ToUpper();
-            id = id.ToUpper();
+            codigo = codigo.ToUpper();
 
-            if (Validaciones.EntradaVacia(placa) || Validaciones.EntradaVacia(id))
+            if (Validaciones.EntradaVacia(placa) || Validaciones.EntradaVacia(codigo))
             {
                 MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -67,10 +67,10 @@ namespace GestionVehicular
                 return;
             }
 
-            if (!Validaciones.ValidarID(id))
+            if (!Validaciones.ValidarCodigo(codigo))
             {
-                MessageBox.Show("El ID debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "ID inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtID.Focus();
+                MessageBox.Show("El codigo debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "Codigo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCodigo.Focus();
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace GestionVehicular
                 txtTipo.Focus();
                 return;
             }
-            bool registrado = gestor.Registrar(placa, id, tipo);
+            bool registrado = gestor.Registrar(placa, codigo, tipo);
             if (registrado)
             {
                 MessageBox.Show("Vehículo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -99,7 +99,7 @@ namespace GestionVehicular
             Vehiculo v = gestor.BuscarPorPlaca(placa);
             if (v != null)
             {
-                txtID.Text = v.Codigo;
+                txtCodigo.Text = v.Codigo;
                 txtTipo.Text = v.TipoVehiculo.ToString();
                 MessageBox.Show("¡Vehículo encontrado!", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -126,7 +126,7 @@ namespace GestionVehicular
             Vehiculo v = gestor.MayorTiempo();
             if (v != null)
             {
-                MessageBox.Show($"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nID: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nCodigo: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -139,7 +139,7 @@ namespace GestionVehicular
             Vehiculo v = gestor.MenorTiempo();
             if (v != null)
             {
-                MessageBox.Show($"Vehículo con Menor Tiempo:\nPlaca: {v.Placa}\nID: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Vehículo con Menor Tiempo:\nPlaca: {v.Placa}\nCodigo: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -154,7 +154,7 @@ namespace GestionVehicular
         private void LimpiarCampos()
         {
             txtPlaca.Clear();
-            txtID.Clear();
+            txtCodigo.Clear();
             txtTipo.Clear();
             txtPlaca.Focus();
         }

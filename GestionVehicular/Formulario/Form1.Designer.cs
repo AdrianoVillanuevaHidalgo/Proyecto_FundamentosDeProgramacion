@@ -32,13 +32,12 @@ namespace GestionVehicular
         private void InitializeComponent()
         {
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.gbDatos = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTipo = new System.Windows.Forms.TextBox();
-            this.txtID = new System.Windows.Forms.TextBox();
+            this.txtCodigo = new System.Windows.Forms.TextBox();
             this.txtPlaca = new System.Windows.Forms.TextBox();
             this.lblTipo = new System.Windows.Forms.Label();
-            this.lblID = new System.Windows.Forms.Label();
+            this.lblCodigo = new System.Windows.Forms.Label();
             this.lblPlaca = new System.Windows.Forms.Label();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -49,7 +48,6 @@ namespace GestionVehicular
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dgvVehiculos = new System.Windows.Forms.DataGridView();
             this.lblAforo = new System.Windows.Forms.Label();
-            this.gbDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,49 +61,32 @@ namespace GestionVehicular
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "CONTROL DE VEHÍCULOS  EN ESTACIONAMIENTO";
             // 
-            // gbDatos
-            // 
-            this.gbDatos.Controls.Add(this.label1);
-            this.gbDatos.Controls.Add(this.txtTipo);
-            this.gbDatos.Controls.Add(this.txtID);
-            this.gbDatos.Controls.Add(this.txtPlaca);
-            this.gbDatos.Controls.Add(this.lblTipo);
-            this.gbDatos.Controls.Add(this.lblID);
-            this.gbDatos.Controls.Add(this.lblPlaca);
-            this.gbDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbDatos.Location = new System.Drawing.Point(81, 81);
-            this.gbDatos.Name = "gbDatos";
-            this.gbDatos.Size = new System.Drawing.Size(276, 131);
-            this.gbDatos.TabIndex = 1;
-            this.gbDatos.TabStop = false;
-            this.gbDatos.Text = "Datos del Vehículo";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 112);
+            this.label1.Location = new System.Drawing.Point(21, 230);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 16);
+            this.label1.Size = new System.Drawing.Size(76, 16);
             this.label1.TabIndex = 11;
             this.label1.Text = "(Auto/Moto)";
             // 
             // txtTipo
             // 
-            this.txtTipo.Location = new System.Drawing.Point(159, 88);
+            this.txtTipo.Location = new System.Drawing.Point(170, 189);
             this.txtTipo.Name = "txtTipo";
             this.txtTipo.Size = new System.Drawing.Size(100, 22);
             this.txtTipo.TabIndex = 5;
             // 
-            // txtID
+            // txtCodigo
             // 
-            this.txtID.Location = new System.Drawing.Point(159, 54);
-            this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(100, 22);
-            this.txtID.TabIndex = 4;
+            this.txtCodigo.Location = new System.Drawing.Point(170, 161);
+            this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.Size = new System.Drawing.Size(100, 22);
+            this.txtCodigo.TabIndex = 4;
             // 
             // txtPlaca
             // 
-            this.txtPlaca.Location = new System.Drawing.Point(159, 21);
+            this.txtPlaca.Location = new System.Drawing.Point(170, 132);
             this.txtPlaca.Name = "txtPlaca";
             this.txtPlaca.Size = new System.Drawing.Size(100, 22);
             this.txtPlaca.TabIndex = 3;
@@ -113,27 +94,27 @@ namespace GestionVehicular
             // lblTipo
             // 
             this.lblTipo.AutoSize = true;
-            this.lblTipo.Location = new System.Drawing.Point(6, 94);
+            this.lblTipo.Location = new System.Drawing.Point(12, 196);
             this.lblTipo.Name = "lblTipo";
-            this.lblTipo.Size = new System.Drawing.Size(125, 16);
+            this.lblTipo.Size = new System.Drawing.Size(109, 16);
             this.lblTipo.TabIndex = 2;
             this.lblTipo.Text = "Tipo de Vehiculo";
             // 
-            // lblID
+            // lblCodigo
             // 
-            this.lblID.AutoSize = true;
-            this.lblID.Location = new System.Drawing.Point(7, 60);
-            this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(134, 16);
-            this.lblID.TabIndex = 1;
-            this.lblID.Text = "Codigo de Alumno";
+            this.lblCodigo.AutoSize = true;
+            this.lblCodigo.Location = new System.Drawing.Point(12, 169);
+            this.lblCodigo.Name = "lblCodigo";
+            this.lblCodigo.Size = new System.Drawing.Size(118, 16);
+            this.lblCodigo.TabIndex = 1;
+            this.lblCodigo.Text = "Codigo de Alumno";
             // 
             // lblPlaca
             // 
             this.lblPlaca.AutoSize = true;
-            this.lblPlaca.Location = new System.Drawing.Point(7, 27);
+            this.lblPlaca.Location = new System.Drawing.Point(44, 138);
             this.lblPlaca.Name = "lblPlaca";
-            this.lblPlaca.Size = new System.Drawing.Size(47, 16);
+            this.lblPlaca.Size = new System.Drawing.Size(42, 16);
             this.lblPlaca.TabIndex = 0;
             this.lblPlaca.Text = "Placa";
             // 
@@ -239,22 +220,26 @@ namespace GestionVehicular
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 533);
+            this.Controls.Add(this.txtTipo);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.lblAforo);
+            this.Controls.Add(this.txtPlaca);
             this.Controls.Add(this.dgvVehiculos);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnMenorTiempo);
+            this.Controls.Add(this.lblTipo);
             this.Controls.Add(this.btnMayorTiempo);
+            this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.btnBurbuja);
+            this.Controls.Add(this.lblPlaca);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnRegistrar);
-            this.Controls.Add(this.gbDatos);
             this.Controls.Add(this.lblTitulo);
             this.Name = "Form1";
             this.Text = "Sistema de Control de Estacionamiento";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.gbDatos.ResumeLayout(false);
-            this.gbDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -268,11 +253,10 @@ namespace GestionVehicular
         #endregion
 
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.GroupBox gbDatos;
-        private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.TextBox txtPlaca;
         private System.Windows.Forms.Label lblTipo;
-        private System.Windows.Forms.Label lblID;
+        private System.Windows.Forms.Label lblCodigo;
         private System.Windows.Forms.Label lblPlaca;
         private System.Windows.Forms.TextBox txtTipo;
         private System.Windows.Forms.Button btnRegistrar;
