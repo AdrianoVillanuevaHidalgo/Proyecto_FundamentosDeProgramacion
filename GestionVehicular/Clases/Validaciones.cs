@@ -37,16 +37,16 @@ namespace GestionVehicular
             return true;
         }
 
-        public static bool ValidarID(string id)
+        public static bool ValidarCodigo(string codigo)
         {
-            id = id.Trim().ToUpper();
-            if (id.Length != 9 || !id.StartsWith("N00"))
+            codigo = codigo.Trim().ToUpper();
+            if (codigo.Length != 9 || !codigo.StartsWith("N00"))
             {
                 return false;
             }
             for (int i = 3; i < 9; i++)
             {
-                if (!char.IsDigit(id[i]))
+                if (!char.IsDigit(codigo[i]))
                 {
                     return false;
                 }
