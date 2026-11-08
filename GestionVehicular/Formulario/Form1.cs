@@ -41,7 +41,7 @@ namespace GestionVehicular
             Vehiculo[] lista = gestor.ObtenerVehiculos(out int total);
             for (int i = 0; i < total; i++)
             {
-                dgvVehiculos.Rows.Add(lista[i].Placa, lista[i].ID, lista[i].TipoVehiculo, lista[i].HoraIngreso.ToString("hh:mm tt"), $"{lista[i].HorasEstacionado:F2} hrs");
+                dgvVehiculos.Rows.Add(lista[i].Placa, lista[i].Codigo, lista[i].TipoVehiculo, lista[i].HoraIngreso.ToString("hh:mm tt"), $"{lista[i].HorasEstacionado:F2} hrs");
             }
             lblAforo.Text = $"Aforo Disponible: {gestor.AforoDisponible} de {gestor.capacidadMaxima} espacios.";
         }
@@ -99,7 +99,7 @@ namespace GestionVehicular
             Vehiculo v = gestor.BuscarPorPlaca(placa);
             if (v != null)
             {
-                txtID.Text = v.ID;
+                txtID.Text = v.Codigo;
                 txtTipo.Text = v.TipoVehiculo.ToString();
                 MessageBox.Show("¡Vehículo encontrado!", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -126,7 +126,7 @@ namespace GestionVehicular
             Vehiculo v = gestor.MayorTiempo();
             if (v != null)
             {
-                MessageBox.Show($"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nID: {v.ID}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nID: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -139,7 +139,7 @@ namespace GestionVehicular
             Vehiculo v = gestor.MenorTiempo();
             if (v != null)
             {
-                MessageBox.Show($"Vehículo con Menor Tiempo:\nPlaca: {v.Placa}\nID: {v.ID}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Vehículo con Menor Tiempo:\nPlaca: {v.Placa}\nID: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
