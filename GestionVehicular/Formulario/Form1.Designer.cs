@@ -242,13 +242,11 @@ namespace GestionVehicular
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.Font = new System.Drawing.Font("Arial", 10F);
             this.cboTipo.FormattingEnabled = true;
-            this.cboTipo.Items.AddRange(new object[] {
-            "Auto",
-            "Moto"});
             this.cboTipo.Location = new System.Drawing.Point(189, 224);
             this.cboTipo.Name = "cboTipo";
             this.cboTipo.Size = new System.Drawing.Size(109, 27);
             this.cboTipo.TabIndex = 19;
+            this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.cboTipo_SelectedIndexChanged);
             // 
             // btnModificar
             // 

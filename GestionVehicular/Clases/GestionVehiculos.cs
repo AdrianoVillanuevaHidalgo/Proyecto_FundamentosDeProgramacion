@@ -37,17 +37,27 @@ namespace GestionVehicular
             return false; // Arreglo lleno
         }
 
-        // Buscar vehículo por placa
+        // Metodo que busca vehículo por placa
+        // devuelve null si la placa no esta registrada o si es "no aplica"
         public Vehiculo BuscarPorPlaca(string placa)
         {
+            // no se considera "No aplica", ya que varios vehiculos pueden compartir esa "placa"
+            if (placa == "No aplica")
+            {
+                return null;
+            }
+
+            // recorre las casillas con vehiculos, no las vacias
             for (int i = 0; i < cantidad; i++)
             {
-                if (vehiculos[i].Placa.Equals(placa, StringComparison.OrdinalIgnoreCase))
+                // compara los textos ignorando mayúsculas
+                if (vehiculos[i].Placa == placa)
                 {
                     return vehiculos[i];
                 }
             }
             return null;
+
         }
 
         // Metodo que busca vehículo por codigo

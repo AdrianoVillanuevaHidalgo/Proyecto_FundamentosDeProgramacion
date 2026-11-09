@@ -117,6 +117,25 @@ namespace GestionVehicular
                 MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarTextBox();
+        }
+        public void ActualizarTextBox()
+        {
+
+            if (cboTipo.Text == "Bicicleta" || cboTipo.Text == "Scooter")
+            {
+                txtPlaca.Text = "No aplica";
+                txtPlaca.Enabled = false;
+            }
+
+            else if (!txtPlaca.Enabled)
+            {
+                txtPlaca.Clear();
+                txtPlaca.Enabled = true;
+            }
+        }
         private void btnBuscar_Click_1(object sender, EventArgs e)
         {
             string texto = txtBuscar.Text.Trim();
@@ -426,5 +445,6 @@ namespace GestionVehicular
                 MessageBox.Show("Salida registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
     }
 }
