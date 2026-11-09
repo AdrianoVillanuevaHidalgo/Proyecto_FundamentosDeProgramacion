@@ -46,11 +46,22 @@ namespace GestionVehicular
             lblAforo.Text = $"Aforo Disponible: {gestor.AforoDisponible} de {gestor.capacidadMaxima} espacios.";
         }
 
+        private void MostrarEnGrid(Vehiculo[] arreglo, int total)
+        {
+            dgvVehiculos.Rows.Clear();
+            for (int i = 0; i < total; i++)
+            {
+                dgvVehiculos.Rows.Add(arreglo[i].Placa, arreglo[i].Codigo, arreglo[i].TipoVehiculo,
+                    arreglo[i].HoraIngreso.ToString("hh:mm tt"), $"{arreglo[i].HorasEstacionado:F2} hrs");
+            }
+        }
+
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
+
             string placa = txtPlaca.Text.Trim();
             string codigo = txtCodigo.Text.Trim();
-            string tipo = txtTipo.Text.Trim().ToUpper();
+            string tipo = cboTipo.SelectedItem == null ? "" : cboTipo.SelectedItem.ToString();
             placa = placa.ToUpper();
             codigo = codigo.ToUpper();
 
@@ -60,26 +71,40 @@ namespace GestionVehicular
                 return;
             }
 
-            if (!Validaciones.ValidarPlaca(placa))
-            {
-                MessageBox.Show("La placa debe tener 3 letras seguidas de 3 números (ejemplo: BTS419)", "Placa inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPlaca.Focus();
-                return;
-            }
 
+            if (!txtPlaca.Enabled)
+            {
+                placa = txtPlaca.Text.Trim();
+            }
+            else
+            {
+                if (!Validaciones.ValidarPlaca(placa))
+                {
+                    MessageBox.Show("La placa debe tener 3 letras seguidas de 3 números (ejemplo: BTS419)", "Placa inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPlaca.Focus();
+                    return;
+                }
+            }
             if (!Validaciones.ValidarCodigo(codigo))
             {
-                MessageBox.Show("El codigo debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "Codigo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El codigo debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "codigo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCodigo.Focus();
                 return;
             }
 
-            if (!Validaciones.ValidarTipo(tipo))
+
+            if (gestor.BuscarPorPlaca(placa) != null)
             {
-                MessageBox.Show("El tipo de vehiculo debe ser un auto o una moto", "Tipo de Vehiculo invalido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTipo.Focus();
+                MessageBox.Show("Esa placa ya está registrada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            if (gestor.BuscarPorCodigo(codigo) != null)
+            {
+                MessageBox.Show("Ese código ya está registrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             bool registrado = gestor.Registrar(placa, codigo, tipo);
             if (registrado)
             {
@@ -95,17 +120,23 @@ namespace GestionVehicular
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            string placa = txtPlaca.Text.Trim();
-            Vehiculo v = gestor.BuscarPorPlaca(placa);
-            if (v != null)
+            string texto = txtBuscar.Text.Trim();
+
+            if (Validaciones.EntradaVacia(texto))
             {
-                txtCodigo.Text = v.Codigo;
-                txtTipo.Text = v.TipoVehiculo.ToString();
-                MessageBox.Show("¡Vehículo encontrado!", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Escriba el texto a buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBuscar.Focus();
+                return;
             }
-            else
+
+            bool porPlaca = cboBuscarPor.SelectedIndex == 0;
+
+            Vehiculo[] resultado = gestor.BuscarCoincidencias(texto, porPlaca, out int total);
+            MostrarEnGrid(resultado, total);
+
+            if (total == 0)
             {
-                MessageBox.Show("Vehículo no encontrado con esa placa.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -155,7 +186,7 @@ namespace GestionVehicular
         {
             txtPlaca.Clear();
             txtCodigo.Clear();
-            txtTipo.Clear();
+            cboTipo.SelectedIndex = 0;
             txtPlaca.Focus();
         }
     }

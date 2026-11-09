@@ -46,6 +46,20 @@ namespace GestionVehicular
             return null;
         }
 
+        // Metodo que busca vehículo por codigo
+        // devuelve null si el codigo no esta registrado
+        public Vehiculo BuscarPorCodigo(string codigo)
+        {
+            for (int i = 0; i < cantidad; i++)
+            {
+                if (vehiculos[i].Codigo == codigo)
+                {
+                    return vehiculos[i];
+                }
+            }
+            return null;
+        }
+
         // Método para obtener todos los vehículos actuales
         public Vehiculo[] ObtenerVehiculos(out int total)
         {
@@ -98,6 +112,41 @@ namespace GestionVehicular
                 }
             }
             return menor;
+        }
+
+        // Metodo que devuelve un arreglo con los vehiculos que coincidieron con la busqueda
+        public Vehiculo[] BuscarCoincidencias(string texto, bool porPlaca, out int total)
+        {
+            // Se crea el arreglo para almacenar las coincidencias
+            // el arreglo tengra la misma longitud que el de las casillas ocupadas en el arreglo Vehiculos
+            Vehiculo[] coincidencias = new Vehiculo[cantidad];
+            total = 0;
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                Vehiculo vehiculo = vehiculos[i];
+                string dato;
+
+                if (porPlaca)
+                {
+                    dato = vehiculo.Placa;
+                }
+                else
+                {
+                    dato = vehiculo.Codigo;
+                }
+
+                // busca el string texto dentro del string dato
+                // StringComparison.OrdinalIgnoreCase hace que se ignoren mayusculas y minusculas
+                bool contieneTexto = dato.IndexOf(texto, StringComparison.OrdinalIgnoreCase) >= 0;
+
+                if (contieneTexto)
+                {
+                    coincidencias[total] = vehiculo;
+                    total++;
+                }
+            }
+            return coincidencias;
         }
     }
 }
