@@ -39,13 +39,9 @@ namespace GestionVehicular
 
         private void ActualizarGrid()
         {
-            dgvVehiculos.Rows.Clear();
-            Vehiculo[] lista = gestor.ObtenerVehiculos(out int total);
-            for (int i = 0; i < total; i++)
-            {
-                dgvVehiculos.Rows.Add(lista[i].Placa, lista[i].Codigo, lista[i].TipoVehiculo, lista[i].HoraIngreso.ToString("hh:mm tt"), $"{lista[i].HorasEstacionado:F2} hrs");
-            }
-            lblAforo.Text = $"Aforo Disponible: {gestor.AforoDisponible} de {gestor.capacidadMaxima} espacios.";
+            Vehiculo[] arreglo = gestor.ObtenerVehiculos(out int total);
+            MostrarEnGrid(arreglo, total);
+            lblAforo.Text = $"{gestor.AforoDisponible} de {gestor.capacidadMaxima} espacios.";
         }
 
         private void MostrarEnGrid(Vehiculo[] arreglo, int total)
