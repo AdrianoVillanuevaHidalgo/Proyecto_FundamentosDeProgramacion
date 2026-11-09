@@ -302,6 +302,7 @@ namespace GestionVehicular
             this.btnVerHistorial.TabIndex = 5;
             this.btnVerHistorial.Text = "Ver Historial";
             this.btnVerHistorial.UseVisualStyleBackColor = true;
+            this.btnVerHistorial.Click += new System.EventHandler(this.btnVerHistorial_Click);
             // 
             // cboBuscarPor
             // 

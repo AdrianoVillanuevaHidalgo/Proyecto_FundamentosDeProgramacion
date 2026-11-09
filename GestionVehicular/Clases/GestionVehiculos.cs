@@ -21,6 +21,10 @@ namespace GestionVehicular
             cantidad = 0;
         }
 
+        // Vehiculos que ya se retiraron
+        // Se guardan aca para no perderlos al eliminarlos del arreglo
+        public List<Vehiculo> vehiculosRetirados = new List<Vehiculo>();
+
         // Registrar vehículo
         public bool Registrar(string placa, string codigo, string tipo)
         {
@@ -167,6 +171,61 @@ namespace GestionVehicular
                 }
             }
             return coincidencias;
+        }
+        // Metodo que arma el texto de una linea del historial
+        private string CrearTexto(Vehiculo vehiculo, string accion)
+        {
+            return $"El vehículo {vehiculo.TipoVehiculo} (Placa: {vehiculo.Placa} - Código: {vehiculo.Codigo}) {accion}";
+        }
+
+        // Metodo que arma el historial completo, ordenado por hora
+        public List<string> ObtenerHistorial()
+        {
+            List<DateTime> horas = new List<DateTime>();
+            List<string> textos = new List<string>();
+
+            // Vehiculos que siguen dentro: solo su ingreso
+            for (int i = 0; i < cantidad; i++)
+            {
+                horas.Add(vehiculos[i].HoraIngreso);
+                textos.Add(CrearTexto(vehiculos[i], "ha ingresado al estacionamiento"));
+            }
+
+            // Vehiculos retirados: su ingreso y su salida
+            foreach (Vehiculo vehiculo in vehiculosRetirados)
+            {
+                horas.Add(vehiculo.HoraIngreso);
+                textos.Add(CrearTexto(vehiculo, "ha ingresado al estacionamiento"));
+
+                horas.Add(vehiculo.HoraSalida);
+                textos.Add(CrearTexto(vehiculo, "se ha retirado del estacionamiento"));
+            }
+
+            // Burbuja por hora: cada vez que se intercambia una hora, se intercambia tambien su texto
+            for (int i = 0; i < horas.Count - 1; i++)
+            {
+                for (int j = 0; j < horas.Count - i - 1; j++)
+                {
+                    if (horas[j] > horas[j + 1])
+                    {
+                        DateTime auxHora = horas[j];
+                        horas[j] = horas[j + 1];
+                        horas[j + 1] = auxHora;
+
+                        string auxTexto = textos[j];
+                        textos[j] = textos[j + 1];
+                        textos[j + 1] = auxTexto;
+                    }
+                }
+            }
+
+            // Convierte cada par hora/texto en una linea
+            List<string> lineas = new List<string>();
+            for (int i = 0; i < horas.Count; i++)
+            {
+                lineas.Add($"- {horas[i]:hh:mm tt} {textos[i]}");
+            }
+            return lineas;
         }
 
         // Metodo para modificar una instacia de la clase vehiculo

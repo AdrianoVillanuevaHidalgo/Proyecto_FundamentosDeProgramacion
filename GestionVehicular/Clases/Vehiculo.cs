@@ -12,6 +12,8 @@ namespace GestionVehicular
         public string Codigo { get; set; }
         public string TipoVehiculo { get; set; }
         public DateTime HoraIngreso { get; set; }
+        public DateTime HoraSalida { get; set; }
+
 
         // Constructor
         public Vehiculo(string placa, string codigo, string tipo)

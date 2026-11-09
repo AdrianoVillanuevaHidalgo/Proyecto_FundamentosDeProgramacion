@@ -385,5 +385,19 @@ namespace GestionVehicular
             }
         }
 
+        private void btnVerHistorial_Click(object sender, EventArgs e)
+        {
+            {
+                List<string> historial = gestor.ObtenerHistorial();
+
+                if (historial.Count == 0)
+                {
+                    MessageBox.Show("Aún no hay movimientos.", "Historial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                MessageBox.Show(string.Join("\n", historial), "Historial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
