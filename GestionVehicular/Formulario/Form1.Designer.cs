@@ -332,6 +332,7 @@ namespace GestionVehicular
             this.btnCargarDatos.Size = new System.Drawing.Size(51, 51);
             this.btnCargarDatos.TabIndex = 4;
             this.btnCargarDatos.UseVisualStyleBackColor = true;
+            this.btnCargarDatos.Click += new System.EventHandler(this.btnCargarDatos_Click);
             // 
             // btnPegar
             // 

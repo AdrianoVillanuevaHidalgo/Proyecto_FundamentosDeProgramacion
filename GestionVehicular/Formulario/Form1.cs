@@ -13,6 +13,8 @@ namespace GestionVehicular
     public partial class Form1 : Form
     {
         private GestionVehiculos gestor;
+        private bool datosPruebaCargados = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -188,6 +190,49 @@ namespace GestionVehicular
             txtCodigo.Clear();
             cboTipo.SelectedIndex = 0;
             txtPlaca.Focus();
+        }
+
+        // Carga datos, utiles para testear
+        private void btnCargarDatos_Click(object sender, EventArgs e)
+        {
+            if (datosPruebaCargados)
+            {
+                return;
+            }
+            datosPruebaCargados = true;
+
+            gestor.Registrar("BTS419", "N00221480", "Auto");
+            gestor.BuscarPorCodigo("N00221480").HoraIngreso = DateTime.Now.AddHours(-5.5);
+
+            gestor.Registrar("XYZ789", "N00221481", "Moto");
+            gestor.BuscarPorCodigo("N00221481").HoraIngreso = DateTime.Now.AddHours(-2);
+
+            gestor.Registrar("ABC123", "N00746281", "Camioneta");
+            gestor.BuscarPorCodigo("N00746281").HoraIngreso = DateTime.Now.AddHours(-8.25);
+
+            gestor.Registrar("KLM456", "N00391852", "Auto");
+            gestor.BuscarPorCodigo("N00391852").HoraIngreso = DateTime.Now.AddHours(-0.5);
+
+            gestor.Registrar("PQR321", "N00827514", "Moto");
+            gestor.BuscarPorCodigo("N00827514").HoraIngreso = DateTime.Now.AddHours(-3.75);
+
+            gestor.Registrar("DEF654", "N00563197", "Camioneta");
+            gestor.BuscarPorCodigo("N00563197").HoraIngreso = DateTime.Now.AddHours(-6);
+
+            gestor.Registrar("GHI987", "N00652918", "Auto");
+            gestor.BuscarPorCodigo("N00652918").HoraIngreso = DateTime.Now.AddHours(-1.25);
+
+            gestor.Registrar("No aplica", "N00195764", "Bicicleta");
+            gestor.BuscarPorCodigo("N00195764").HoraIngreso = DateTime.Now.AddHours(-4);
+
+            gestor.Registrar("No aplica", "N00362857", "Scooter");
+            gestor.BuscarPorCodigo("N00362857").HoraIngreso = DateTime.Now.AddHours(-0.75);
+
+            gestor.Registrar("STU579", "N00248361", "Moto");
+            gestor.BuscarPorCodigo("N00248361").HoraIngreso = DateTime.Now.AddHours(-7);
+
+            ActualizarGrid();
+            btnCargarDatos.Enabled = false;
         }
     }
 }
