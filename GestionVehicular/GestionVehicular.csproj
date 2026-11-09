@@ -69,6 +69,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="bin\Debug\GestionVehicular.exe.config" />
     <None Include="Properties\Settings.settings">
@@ -87,6 +88,10 @@
   <ItemGroup>
     <Content Include="bin\Debug\GestionVehicular.exe" />
     <Content Include="bin\Debug\GestionVehicular.pdb" />
+    <None Include="Resources\lapiz-20.png" />
+    <None Include="Resources\actualizar-20.png" />
+    <None Include="Resources\bote-de-basura-20.png" />
+    <None Include="Resources\Pegar-20.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
