@@ -148,5 +148,15 @@ namespace GestionVehicular
             }
             return coincidencias;
         }
+
+        // Metodo para modificar una instacia de la clase vehiculo
+        public void Modificar(string idOriginal, string placa, string codigo, string tipo)
+        {
+            Vehiculo vehiculo = BuscarPorCodigo(idOriginal);
+
+            vehiculo.Placa = placa;
+            vehiculo.Codigo = codigo;
+            vehiculo.TipoVehiculo = tipo;
+        }
     }
 }

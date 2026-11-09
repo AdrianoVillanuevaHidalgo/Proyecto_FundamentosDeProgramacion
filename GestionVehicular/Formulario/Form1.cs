@@ -263,5 +263,82 @@ namespace GestionVehicular
             txtPlaca.Focus();
         }
 
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (dgvVehiculos.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione en la tabla, el vehículo que desea modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Datos actuales del vehiculo seleccionado
+            DataGridViewRow fila = dgvVehiculos.SelectedRows[0];
+            string idOriginal = fila.Cells["codigo"].Value.ToString();
+            string placaOriginal = fila.Cells["Placa"].Value.ToString();
+            string tipoOriginal = fila.Cells["Tipo de Vehiculo"].Value.ToString();
+
+            // Datos nuevos escritos en los campos
+            string tipo = cboTipo.SelectedItem.ToString();
+            string codigo = txtCodigo.Text.Trim().ToUpper();
+            string placa = txtPlaca.Text.Trim();
+
+            // "No aplica" se deja tal cual
+            if (txtPlaca.Enabled)
+            {
+                placa = placa.ToUpper();
+            }
+
+            if (Validaciones.EntradaVacia(placa) || Validaciones.EntradaVacia(codigo))
+            {
+                MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (txtPlaca.Enabled && !Validaciones.ValidarPlaca(placa))
+            {
+                MessageBox.Show("La placa debe tener 3 letras seguidas de 3 números (ejemplo: BTS419)", "Placa inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPlaca.Focus();
+                return;
+            }
+
+            if (!Validaciones.ValidarCodigo(codigo))
+            {
+                MessageBox.Show("El codigo debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "codigo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCodigo.Focus();
+                return;
+            }
+
+            // La placa y el codigo no deben pertenecer a OTRO vehiculo
+            Vehiculo conMismaPlaca = gestor.BuscarPorPlaca(placa);
+            if (conMismaPlaca != null && conMismaPlaca.Codigo != idOriginal)
+            {
+                MessageBox.Show("Esa placa ya está registrada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Vehiculo conMismoID = gestor.BuscarPorCodigo(codigo);
+            if (conMismoID != null && codigo != idOriginal)
+            {
+                MessageBox.Show("Ese código ya está registrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Confirmacion mostrando el antes y despues
+            DialogResult respuesta = MessageBox.Show(
+                $"¿Está seguro de modificar el vehículo?\n\n" +
+                $"ANTES\nPlaca: {placaOriginal}\nID: {idOriginal}\nTipo de Vehiculo: {tipoOriginal}\n\n" +
+                $"DESPUÉS\nPlaca: {placa}\nID: {codigo}\nTipo de Vehiculo: {tipo}",
+                "Confirmar modificación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                gestor.Modificar(idOriginal, placa, codigo, tipo);
+                ActualizarGrid();
+                LimpiarCampos();
+                MessageBox.Show("Vehículo modificado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
