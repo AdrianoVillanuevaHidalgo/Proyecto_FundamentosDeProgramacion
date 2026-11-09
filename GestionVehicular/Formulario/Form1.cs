@@ -290,6 +290,22 @@ namespace GestionVehicular
             cboTipo.SelectedIndex = 0;
             txtPlaca.Focus();
         }
+        private void btnPegar_Click(object sender, EventArgs e)
+        {
+            {
+                if (dgvVehiculos.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Seleccione en la tabla, el vehículo que desea modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DataGridViewRow fila = dgvVehiculos.SelectedRows[0];
+
+                cboTipo.SelectedItem = fila.Cells["Tipo de Vehiculo"].Value.ToString();
+                txtPlaca.Text = fila.Cells["Placa"].Value.ToString();
+                txtCodigo.Text = fila.Cells["codigo"].Value.ToString();
+            }
+        }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {

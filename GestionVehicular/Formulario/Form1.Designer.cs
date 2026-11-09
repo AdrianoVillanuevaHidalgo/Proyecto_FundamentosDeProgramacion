@@ -355,6 +355,7 @@ namespace GestionVehicular
             this.btnPegar.Size = new System.Drawing.Size(53, 51);
             this.btnPegar.TabIndex = 9;
             this.btnPegar.UseVisualStyleBackColor = true;
+            this.btnPegar.Click += new System.EventHandler(this.btnPegar_Click);
             // 
             // btnLimpiar
             // 
