@@ -17,7 +17,7 @@ Sistema de escritorio desarrollado en **C# (Windows Forms)** bajo el paradigma d
 4. **Validación de Datos:** Uso de expresiones regulares y validaciones lógicas para evitar campos vacíos o formatos de placa incorrectos.
 
 ## Estructura del Proyecto (Arquitectura en 3 Capas)
-``
+```text
 📁 GestionVehicular (Solución)
  ┣ GestionVehicular.slnx
  ┣ .gitignore
@@ -48,7 +48,7 @@ Sistema de escritorio desarrollado en **C# (Windows Forms)** bajo el paradigma d
        ┣ actualizar-20.png
        ┣ bote-de-basura-20.png
        ┗ lapiz-20.png
-``
+```
 
 ---
 *Proyecto desarrollado para el curso de Fundamentos de Programación - Universidad Privada del Norte (UPN) - 2026.*
