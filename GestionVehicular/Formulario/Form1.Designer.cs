@@ -292,6 +292,7 @@ namespace GestionVehicular
             this.btnRegistrarSalida.TabIndex = 5;
             this.btnRegistrarSalida.Text = "Registrar Salida";
             this.btnRegistrarSalida.UseVisualStyleBackColor = true;
+            this.btnRegistrarSalida.Click += new System.EventHandler(this.btnRegistrarSalida_Click);
             // 
             // btnVerHistorial
             // 

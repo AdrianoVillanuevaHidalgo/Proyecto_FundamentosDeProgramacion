@@ -178,6 +178,17 @@ namespace GestionVehicular
             return $"El vehículo {vehiculo.TipoVehiculo} (Placa: {vehiculo.Placa} - Código: {vehiculo.Codigo}) {accion}";
         }
 
+        // Metodo que guarda el vehiculo en la lista de retirados y lo quita del arreglo
+        public void RegistrarSalida(string codigo)
+        {
+            Vehiculo vehiculo = BuscarPorCodigo(codigo);
+
+            vehiculo.HoraSalida = DateTime.Now;
+            vehiculosRetirados.Add(vehiculo);
+
+            Eliminar(codigo);
+        }
+
         // Metodo que arma el historial completo, ordenado por hora
         public List<string> ObtenerHistorial()
         {
