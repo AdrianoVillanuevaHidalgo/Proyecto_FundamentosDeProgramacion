@@ -25,6 +25,9 @@ namespace GestionVehicular
         {
             // Configuración inicial de columnas del DataGridView
             dgvVehiculos.ColumnCount = 5;
+            dgvVehiculos.MultiSelect = false;
+            dgvVehiculos.AllowUserToResizeRows = false;
+            dgvVehiculos.AllowUserToResizeColumns = false;
             dgvVehiculos.Columns[0].Name = "Placa";
             dgvVehiculos.Columns[1].Name = "Codigo";
             dgvVehiculos.Columns[2].Name = "Tipo de Vehiculo";
@@ -35,6 +38,14 @@ namespace GestionVehicular
                 columna.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             ActualizarGrid();
+
+            string[] tipos = { "Auto", "Moto", "Camioneta", "Bicicleta", "Scooter" };
+            cboTipo.Items.AddRange(tipos);
+            cboTipo.SelectedIndex = 0;
+
+            cboBuscarPor.Items.Add("Buscar por Placa");
+            cboBuscarPor.Items.Add("Buscar por Codigo");
+            cboBuscarPor.SelectedIndex = 0;
         }
 
         private void ActualizarGrid()
@@ -42,6 +53,96 @@ namespace GestionVehicular
             Vehiculo[] arreglo = gestor.ObtenerVehiculos(out int total);
             MostrarEnGrid(arreglo, total);
             lblAforo.Text = $"{gestor.AforoDisponible} de {gestor.capacidadMaxima} espacios.";
+        }
+
+        private void CargarDatosPrueba()
+        {
+            if (datosPruebaCargados)
+            {
+                return;
+            }
+            datosPruebaCargados = true;
+
+            gestor.Registrar("BTS419", "N00221480", "Auto");
+            gestor.BuscarPorCodigo("N00221480").HoraIngreso = DateTime.Now.AddHours(-5.5);
+
+            gestor.Registrar("XYZ789", "N00221481", "Moto");
+            gestor.BuscarPorCodigo("N00221481").HoraIngreso = DateTime.Now.AddHours(-2);
+
+            gestor.Registrar("ABC123", "N00746281", "Camioneta");
+            gestor.BuscarPorCodigo("N00746281").HoraIngreso = DateTime.Now.AddHours(-8.25);
+
+            gestor.Registrar("KLM456", "N00391852", "Auto");
+            gestor.BuscarPorCodigo("N00391852").HoraIngreso = DateTime.Now.AddHours(-0.5);
+
+            gestor.Registrar("PQR321", "N00827514", "Moto");
+            gestor.BuscarPorCodigo("N00827514").HoraIngreso = DateTime.Now.AddHours(-3.75);
+
+            gestor.Registrar("DEF654", "N00563197", "Camioneta");
+            gestor.BuscarPorCodigo("N00563197").HoraIngreso = DateTime.Now.AddHours(-6);
+
+            gestor.Registrar("GHI987", "N00652918", "Auto");
+            gestor.BuscarPorCodigo("N00652918").HoraIngreso = DateTime.Now.AddHours(-1.25);
+
+            gestor.Registrar("No aplica", "N00195764", "Bicicleta");
+            gestor.BuscarPorCodigo("N00195764").HoraIngreso = DateTime.Now.AddHours(-4);
+
+            gestor.Registrar("No aplica", "N00362857", "Scooter");
+            gestor.BuscarPorCodigo("N00362857").HoraIngreso = DateTime.Now.AddHours(-0.75);
+
+            gestor.Registrar("STU579", "N00248361", "Moto");
+            gestor.BuscarPorCodigo("N00248361").HoraIngreso = DateTime.Now.AddHours(-7);
+
+            ActualizarGrid();
+            btnCargarDatos.Enabled = false;
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string texto = txtBuscar.Text.Trim();
+
+            if (Validaciones.EntradaVacia(texto))
+            {
+                MessageBox.Show("Escriba el texto a buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBuscar.Focus();
+                return;
+            }
+            bool porPlaca = cboBuscarPor.SelectedIndex == 0;
+
+            Vehiculo[] resultado = gestor.BuscarCoincidencias(texto, porPlaca, out int total);
+            MostrarEnGrid(resultado, total);
+
+            if (total == 0)
+            {
+                MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void btnBuscar_Click_1(object sender, EventArgs e)
+        {
+            string texto = txtBuscar.Text.Trim();
+
+            if (Validaciones.EntradaVacia(texto))
+            {
+                MessageBox.Show("Escriba el texto a buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBuscar.Focus();
+                return;
+            }
+
+            bool porPlaca = cboBuscarPor.SelectedIndex == 0;
+
+            Vehiculo[] resultado = gestor.BuscarCoincidencias(texto, porPlaca, out int total);
+            MostrarEnGrid(resultado, total);
+
+            if (total == 0)
+            {
+                MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Carga datos, utiles para testear
+        private void btnCargarDatos_Click(object sender, EventArgs e)
+        {
+            CargarDatosPrueba();
         }
 
         private void MostrarEnGrid(Vehiculo[] arreglo, int total)
@@ -116,40 +217,16 @@ namespace GestionVehicular
             }
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            string texto = txtBuscar.Text.Trim();
-
-            if (Validaciones.EntradaVacia(texto))
-            {
-                MessageBox.Show("Escriba el texto a buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtBuscar.Focus();
-                return;
-            }
-
-            bool porPlaca = cboBuscarPor.SelectedIndex == 0;
-
-            Vehiculo[] resultado = gestor.BuscarCoincidencias(texto, porPlaca, out int total);
-            MostrarEnGrid(resultado, total);
-
-            if (total == 0)
-            {
-                MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             ActualizarGrid();
         }
-
         private void btnBurbuja_Click(object sender, EventArgs e)
         {
             gestor.OrdenarBurbuja();
             ActualizarGrid();
             MessageBox.Show("Vehículos ordenados por hora.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
         private void btnMayorTiempo_Click(object sender, EventArgs e)
         {
             Vehiculo v = gestor.MayorTiempo();
@@ -162,7 +239,6 @@ namespace GestionVehicular
                 MessageBox.Show("No hay vehículos registrados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         private void btnMenorTiempo_Click(object sender, EventArgs e)
         {
             Vehiculo v = gestor.MenorTiempo();
@@ -175,7 +251,6 @@ namespace GestionVehicular
                 MessageBox.Show("No hay vehículos registrados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarCampos();
@@ -188,47 +263,5 @@ namespace GestionVehicular
             txtPlaca.Focus();
         }
 
-        // Carga datos, utiles para testear
-        private void btnCargarDatos_Click(object sender, EventArgs e)
-        {
-            if (datosPruebaCargados)
-            {
-                return;
-            }
-            datosPruebaCargados = true;
-
-            gestor.Registrar("BTS419", "N00221480", "Auto");
-            gestor.BuscarPorCodigo("N00221480").HoraIngreso = DateTime.Now.AddHours(-5.5);
-
-            gestor.Registrar("XYZ789", "N00221481", "Moto");
-            gestor.BuscarPorCodigo("N00221481").HoraIngreso = DateTime.Now.AddHours(-2);
-
-            gestor.Registrar("ABC123", "N00746281", "Camioneta");
-            gestor.BuscarPorCodigo("N00746281").HoraIngreso = DateTime.Now.AddHours(-8.25);
-
-            gestor.Registrar("KLM456", "N00391852", "Auto");
-            gestor.BuscarPorCodigo("N00391852").HoraIngreso = DateTime.Now.AddHours(-0.5);
-
-            gestor.Registrar("PQR321", "N00827514", "Moto");
-            gestor.BuscarPorCodigo("N00827514").HoraIngreso = DateTime.Now.AddHours(-3.75);
-
-            gestor.Registrar("DEF654", "N00563197", "Camioneta");
-            gestor.BuscarPorCodigo("N00563197").HoraIngreso = DateTime.Now.AddHours(-6);
-
-            gestor.Registrar("GHI987", "N00652918", "Auto");
-            gestor.BuscarPorCodigo("N00652918").HoraIngreso = DateTime.Now.AddHours(-1.25);
-
-            gestor.Registrar("No aplica", "N00195764", "Bicicleta");
-            gestor.BuscarPorCodigo("N00195764").HoraIngreso = DateTime.Now.AddHours(-4);
-
-            gestor.Registrar("No aplica", "N00362857", "Scooter");
-            gestor.BuscarPorCodigo("N00362857").HoraIngreso = DateTime.Now.AddHours(-0.75);
-
-            gestor.Registrar("STU579", "N00248361", "Moto");
-            gestor.BuscarPorCodigo("N00248361").HoraIngreso = DateTime.Now.AddHours(-7);
-
-            ActualizarGrid();
-            btnCargarDatos.Enabled = false;
-        }
     }
 }
