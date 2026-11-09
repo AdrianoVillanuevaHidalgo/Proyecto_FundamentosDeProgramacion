@@ -114,6 +114,26 @@ namespace GestionVehicular
             return menor;
         }
 
+        // Metodo para eliminar un elemento del arreglo Vehiculos segun la fila seleccionada
+        public void Eliminar(string codigo)
+        {
+            for (int i = 0; i < cantidad; i++)
+            {
+                if (vehiculos[i].Codigo == codigo)
+                {
+                    for (int j = i; j < cantidad - 1; j++)
+                    {
+                        vehiculos[j] = vehiculos[j + 1];
+                    }
+
+                    vehiculos[cantidad - 1] = null;
+                    // reduce en 1 la cantidad
+                    cantidad--;
+                    return;
+                }
+            }
+        }
+
         // Metodo que devuelve un arreglo con los vehiculos que coincidieron con la busqueda
         public Vehiculo[] BuscarCoincidencias(string texto, bool porPlaca, out int total)
         {

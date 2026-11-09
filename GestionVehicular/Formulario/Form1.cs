@@ -144,6 +144,34 @@ namespace GestionVehicular
         {
             CargarDatosPrueba();
         }
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            {
+                if (dgvVehiculos.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Seleccione en la tabla, el vehículo que desea eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DataGridViewRow fila = dgvVehiculos.SelectedRows[0];
+                string placa = fila.Cells["Placa"].Value.ToString();
+                string codigo = fila.Cells["codigo"].Value.ToString();
+                string tipo = fila.Cells["Tipo de Vehiculo"].Value.ToString();
+
+                DialogResult respuesta = MessageBox.Show(
+                    $"¿Está seguro de eliminar el vehículo?\n\nPlaca: {placa}\nID: {codigo}\nTipo de Vehiculo: {tipo}",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    gestor.Eliminar(codigo);
+                    ActualizarGrid();
+                    MessageBox.Show("Vehículo eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
 
         private void MostrarEnGrid(Vehiculo[] arreglo, int total)
         {
@@ -340,5 +368,6 @@ namespace GestionVehicular
                 MessageBox.Show("Vehículo modificado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
     }
 }
