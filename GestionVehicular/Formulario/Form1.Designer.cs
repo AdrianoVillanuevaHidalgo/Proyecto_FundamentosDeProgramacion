@@ -78,18 +78,18 @@ namespace GestionVehicular
             // 
             this.txtCodigo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCodigo.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtCodigo.Location = new System.Drawing.Point(189, 182);
+            this.txtCodigo.Location = new System.Drawing.Point(202, 182);
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(110, 27);
+            this.txtCodigo.Size = new System.Drawing.Size(97, 27);
             this.txtCodigo.TabIndex = 4;
             // 
             // txtPlaca
             // 
             this.txtPlaca.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPlaca.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPlaca.Location = new System.Drawing.Point(189, 140);
+            this.txtPlaca.Location = new System.Drawing.Point(202, 140);
             this.txtPlaca.Name = "txtPlaca";
-            this.txtPlaca.Size = new System.Drawing.Size(110, 27);
+            this.txtPlaca.Size = new System.Drawing.Size(97, 27);
             this.txtPlaca.TabIndex = 3;
             // 
             // lblTipo
@@ -106,7 +106,7 @@ namespace GestionVehicular
             this.lblCodigo.Font = new System.Drawing.Font("Arial", 10F);
             this.lblCodigo.Location = new System.Drawing.Point(25, 184);
             this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(160, 24);
+            this.lblCodigo.Size = new System.Drawing.Size(169, 24);
             this.lblCodigo.TabIndex = 1;
             this.lblCodigo.Text = "Codigo de Alumno:";
             // 
@@ -242,9 +242,9 @@ namespace GestionVehicular
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.Font = new System.Drawing.Font("Arial", 10F);
             this.cboTipo.FormattingEnabled = true;
-            this.cboTipo.Location = new System.Drawing.Point(189, 224);
+            this.cboTipo.Location = new System.Drawing.Point(202, 224);
             this.cboTipo.Name = "cboTipo";
-            this.cboTipo.Size = new System.Drawing.Size(109, 27);
+            this.cboTipo.Size = new System.Drawing.Size(96, 27);
             this.cboTipo.TabIndex = 19;
             this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.cboTipo_SelectedIndexChanged);
             // 
@@ -335,9 +335,9 @@ namespace GestionVehicular
             // 
             // btnCargarDatos
             // 
-            this.btnCargarDatos.BackgroundImage = global::GestionVehicular.Properties.Resources.lapiz_20;
             this.btnCargarDatos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnCargarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCargarDatos.Image = global::GestionVehicular.Properties.Resources.lapiz_20;
             this.btnCargarDatos.Location = new System.Drawing.Point(606, 645);
             this.btnCargarDatos.Name = "btnCargarDatos";
             this.btnCargarDatos.Size = new System.Drawing.Size(51, 51);

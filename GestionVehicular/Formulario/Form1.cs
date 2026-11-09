@@ -95,6 +95,7 @@ namespace GestionVehicular
 
             ActualizarGrid();
             btnCargarDatos.Enabled = false;
+
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
