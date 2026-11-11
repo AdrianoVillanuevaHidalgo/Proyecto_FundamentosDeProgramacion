@@ -78,24 +78,24 @@ namespace GestionVehicular
             // 
             this.txtCodigo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCodigo.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtCodigo.Location = new System.Drawing.Point(202, 182);
+            this.txtCodigo.Location = new System.Drawing.Point(202, 183);
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(97, 27);
+            this.txtCodigo.Size = new System.Drawing.Size(115, 27);
             this.txtCodigo.TabIndex = 4;
             // 
             // txtPlaca
             // 
             this.txtPlaca.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPlaca.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPlaca.Location = new System.Drawing.Point(202, 140);
+            this.txtPlaca.Location = new System.Drawing.Point(202, 141);
             this.txtPlaca.Name = "txtPlaca";
-            this.txtPlaca.Size = new System.Drawing.Size(97, 27);
+            this.txtPlaca.Size = new System.Drawing.Size(115, 27);
             this.txtPlaca.TabIndex = 3;
             // 
             // lblTipo
             // 
             this.lblTipo.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipo.Location = new System.Drawing.Point(25, 226);
+            this.lblTipo.Location = new System.Drawing.Point(25, 227);
             this.lblTipo.Name = "lblTipo";
             this.lblTipo.Size = new System.Drawing.Size(160, 24);
             this.lblTipo.TabIndex = 2;
@@ -104,7 +104,7 @@ namespace GestionVehicular
             // lblCodigo
             // 
             this.lblCodigo.Font = new System.Drawing.Font("Arial", 10F);
-            this.lblCodigo.Location = new System.Drawing.Point(25, 184);
+            this.lblCodigo.Location = new System.Drawing.Point(25, 185);
             this.lblCodigo.Name = "lblCodigo";
             this.lblCodigo.Size = new System.Drawing.Size(169, 24);
             this.lblCodigo.TabIndex = 1;
@@ -114,7 +114,7 @@ namespace GestionVehicular
             // 
             this.lblPlaca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
             this.lblPlaca.Font = new System.Drawing.Font("Arial", 10F);
-            this.lblPlaca.Location = new System.Drawing.Point(25, 142);
+            this.lblPlaca.Location = new System.Drawing.Point(25, 143);
             this.lblPlaca.Name = "lblPlaca";
             this.lblPlaca.Size = new System.Drawing.Size(160, 24);
             this.lblPlaca.TabIndex = 0;
@@ -230,7 +230,7 @@ namespace GestionVehicular
             // 
             this.label1.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(26, 105);
+            this.label1.Location = new System.Drawing.Point(35, 105);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(273, 29);
             this.label1.TabIndex = 18;
@@ -242,18 +242,18 @@ namespace GestionVehicular
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.Font = new System.Drawing.Font("Arial", 10F);
             this.cboTipo.FormattingEnabled = true;
-            this.cboTipo.Location = new System.Drawing.Point(202, 224);
+            this.cboTipo.Location = new System.Drawing.Point(202, 225);
             this.cboTipo.Name = "cboTipo";
-            this.cboTipo.Size = new System.Drawing.Size(96, 27);
+            this.cboTipo.Size = new System.Drawing.Size(114, 27);
             this.cboTipo.TabIndex = 19;
             this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.cboTipo_SelectedIndexChanged);
             // 
             // btnModificar
             // 
             this.btnModificar.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificar.Location = new System.Drawing.Point(26, 321);
+            this.btnModificar.Location = new System.Drawing.Point(26, 325);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(272, 48);
+            this.btnModificar.Size = new System.Drawing.Size(291, 48);
             this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -331,7 +331,7 @@ namespace GestionVehicular
             this.btnBuscar.TabIndex = 23;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnCargarDatos
             // 
@@ -350,7 +350,7 @@ namespace GestionVehicular
             this.btnPegar.BackgroundImage = global::GestionVehicular.Properties.Resources.Pegar_20;
             this.btnPegar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnPegar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPegar.Location = new System.Drawing.Point(189, 266);
+            this.btnPegar.Location = new System.Drawing.Point(198, 266);
             this.btnPegar.Name = "btnPegar";
             this.btnPegar.Size = new System.Drawing.Size(53, 51);
             this.btnPegar.TabIndex = 9;
@@ -362,7 +362,7 @@ namespace GestionVehicular
             this.btnLimpiar.BackgroundImage = global::GestionVehicular.Properties.Resources.bote_de_basura_20;
             this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.Location = new System.Drawing.Point(246, 266);
+            this.btnLimpiar.Location = new System.Drawing.Point(264, 266);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(53, 51);
             this.btnLimpiar.TabIndex = 9;

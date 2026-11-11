@@ -12,13 +12,13 @@ namespace GestionVehicular
 {
     public partial class Form1 : Form
     {
-        private GestionVehiculos gestor;
+        // Se crea una instancia de la clase GestionVehiculos
+        GestionVehiculos gestor = new GestionVehiculos();
         private bool datosPruebaCargados = false;
 
         public Form1()
         {
             InitializeComponent();
-            gestor = new GestionVehiculos();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -46,15 +46,28 @@ namespace GestionVehicular
             cboBuscarPor.Items.Add("Buscar por Placa");
             cboBuscarPor.Items.Add("Buscar por Codigo");
             cboBuscarPor.SelectedIndex = 0;
+            
         }
 
+        // ===== METODOS =====
         private void ActualizarGrid()
         {
-            Vehiculo[] arreglo = gestor.ObtenerVehiculos(out int total);
-            MostrarEnGrid(arreglo, total);
+            List<Vehiculo> lista = gestor.ObtenerVehiculos();
+            MostrarEnGrid(lista);
             lblAforo.Text = $"{gestor.AforoDisponible} de {gestor.capacidadMaxima} espacios.";
         }
-
+        private void MostrarEnGrid(List<Vehiculo> lista)
+        {
+            dgvVehiculos.Rows.Clear();
+            for (int i = 0; i < lista.Count; i++)
+            {
+                if (lista[i].HoraSalida == DateTime.MinValue)
+                {
+                    dgvVehiculos.Rows.Add(lista[i].Placa, lista[i].Codigo, lista[i].TipoVehiculo,
+                    lista[i].HoraIngreso.ToString("hh:mm tt"), $"{lista[i].HorasEstacionado:F2} hrs");
+                }
+            }
+        }
         private void CargarDatosPrueba()
         {
             if (datosPruebaCargados)
@@ -97,31 +110,6 @@ namespace GestionVehicular
             btnCargarDatos.Enabled = false;
 
         }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            string texto = txtBuscar.Text.Trim();
-
-            if (Validaciones.EntradaVacia(texto))
-            {
-                MessageBox.Show("Escriba el texto a buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtBuscar.Focus();
-                return;
-            }
-            bool porPlaca = cboBuscarPor.SelectedIndex == 0;
-
-            Vehiculo[] resultado = gestor.BuscarCoincidencias(texto, porPlaca, out int total);
-            MostrarEnGrid(resultado, total);
-
-            if (total == 0)
-            {
-                MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-        private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ActualizarTextBox();
-        }
         public void ActualizarTextBox()
         {
 
@@ -137,7 +125,22 @@ namespace GestionVehicular
                 txtPlaca.Enabled = true;
             }
         }
-        private void btnBuscar_Click_1(object sender, EventArgs e)
+        private void LimpiarCampos()
+        {
+            txtPlaca.Clear();
+            txtCodigo.Clear();
+            cboTipo.SelectedIndex = 0;
+            txtPlaca.Focus();
+        }
+      
+        // ===== BOTONES =====
+
+        // Carga datos, utiles para testear
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            ActualizarGrid();
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             string texto = txtBuscar.Text.Trim();
 
@@ -150,16 +153,20 @@ namespace GestionVehicular
 
             bool porPlaca = cboBuscarPor.SelectedIndex == 0;
 
-            Vehiculo[] resultado = gestor.BuscarCoincidencias(texto, porPlaca, out int total);
-            MostrarEnGrid(resultado, total);
+            List<Vehiculo> resultado = gestor.BuscarCoincidencias(texto, porPlaca);
+            MostrarEnGrid(resultado);
 
-            if (total == 0)
+            if (resultado.Count == 0)
             {
                 MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        // Carga datos, utiles para testear
+        private void btnBurbuja_Click(object sender, EventArgs e)
+        {
+            gestor.OrdenarBurbuja();
+            ActualizarGrid();
+            MessageBox.Show("Vehículos ordenados por hora.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
         private void btnCargarDatos_Click(object sender, EventArgs e)
         {
             CargarDatosPrueba();
@@ -192,88 +199,9 @@ namespace GestionVehicular
                 }
             }
         }
-
-        private void MostrarEnGrid(Vehiculo[] arreglo, int total)
+        private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            dgvVehiculos.Rows.Clear();
-            for (int i = 0; i < total; i++)
-            {
-                dgvVehiculos.Rows.Add(arreglo[i].Placa, arreglo[i].Codigo, arreglo[i].TipoVehiculo,
-                    arreglo[i].HoraIngreso.ToString("hh:mm tt"), $"{arreglo[i].HorasEstacionado:F2} hrs");
-            }
-        }
-
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-
-            string placa = txtPlaca.Text.Trim();
-            string codigo = txtCodigo.Text.Trim();
-            string tipo = cboTipo.SelectedItem == null ? "" : cboTipo.SelectedItem.ToString();
-            placa = placa.ToUpper();
-            codigo = codigo.ToUpper();
-
-            if (Validaciones.EntradaVacia(placa) || Validaciones.EntradaVacia(codigo))
-            {
-                MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-
-            if (!txtPlaca.Enabled)
-            {
-                placa = txtPlaca.Text.Trim();
-            }
-            else
-            {
-                if (!Validaciones.ValidarPlaca(placa))
-                {
-                    MessageBox.Show("La placa debe tener 3 letras seguidas de 3 números (ejemplo: BTS419)", "Placa inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtPlaca.Focus();
-                    return;
-                }
-            }
-            if (!Validaciones.ValidarCodigo(codigo))
-            {
-                MessageBox.Show("El codigo debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "codigo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCodigo.Focus();
-                return;
-            }
-
-
-            if (gestor.BuscarPorPlaca(placa) != null)
-            {
-                MessageBox.Show("Esa placa ya está registrada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (gestor.BuscarPorCodigo(codigo) != null)
-            {
-                MessageBox.Show("Ese código ya está registrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            bool registrado = gestor.Registrar(placa, codigo, tipo);
-            if (registrado)
-            {
-                MessageBox.Show("Vehículo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ActualizarGrid();
-                LimpiarCampos();
-            }
-            else
-            {
-                MessageBox.Show("El estacionamiento está lleno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnActualizar_Click(object sender, EventArgs e)
-        {
-            ActualizarGrid();
-        }
-        private void btnBurbuja_Click(object sender, EventArgs e)
-        {
-            gestor.OrdenarBurbuja();
-            ActualizarGrid();
-            MessageBox.Show("Vehículos ordenados por hora.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LimpiarCampos();
         }
         private void btnMayorTiempo_Click(object sender, EventArgs e)
         {
@@ -299,16 +227,70 @@ namespace GestionVehicular
                 MessageBox.Show("No hay vehículos registrados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
-        }
-        private void LimpiarCampos()
-        {
-            txtPlaca.Clear();
-            txtCodigo.Clear();
-            cboTipo.SelectedIndex = 0;
-            txtPlaca.Focus();
+
+            string placa = txtPlaca.Text.Trim();
+            string codigo = txtCodigo.Text.Trim();
+            string tipo = cboTipo.SelectedItem.ToString();
+            placa = placa.ToUpper();
+            codigo = codigo.ToUpper();
+
+            // Se valida que los TextBox no esten vacios
+            if (Validaciones.EntradaVacia(placa) || Validaciones.EntradaVacia(codigo))
+            {
+                MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            // Se valida que placa y codigo tengan un formato correcto
+            if (!txtPlaca.Enabled)
+            {
+                placa = txtPlaca.Text.Trim();
+            }
+            else
+            {
+                if (!Validaciones.ValidarPlaca(placa))
+                {
+                    MessageBox.Show("La placa debe tener 3 letras seguidas de 3 números (ejemplo: BTS419)", "Placa inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPlaca.Focus();
+                    return;
+                }
+            }
+            if (!Validaciones.ValidarCodigo(codigo))
+            {
+                MessageBox.Show("El codigo debe empezar con \"N00\" seguido de 6 números (ejemplo: N00221488)", "codigo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCodigo.Focus();
+                return;
+            }
+
+            List<Vehiculo> lista = gestor.ObtenerVehiculos();
+
+            // Se verifica que una placa o un codigo no sean parte de un vehiculo que sigue dentro del estacionamiento 
+            if (Validaciones.PlacaEstaDentro(placa, lista))
+            {
+                MessageBox.Show("Esa placa ya está registrada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (Validaciones.CodigoEstaDentro(codigo, lista))
+            {
+                MessageBox.Show("Ese código ya está registrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            bool registrado = gestor.Registrar(placa, codigo, tipo);
+            if (registrado)
+            {
+                MessageBox.Show("Vehículo registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ActualizarGrid();
+                LimpiarCampos();
+            }
+            else
+            {
+                MessageBox.Show("El estacionamiento está lleno.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void btnPegar_Click(object sender, EventArgs e)
         {
@@ -326,7 +308,6 @@ namespace GestionVehicular
                 txtCodigo.Text = fila.Cells["codigo"].Value.ToString();
             }
         }
-
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (dgvVehiculos.SelectedRows.Count == 0)
@@ -404,22 +385,29 @@ namespace GestionVehicular
                 MessageBox.Show("Vehículo modificado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void btnVerHistorial_Click(object sender, EventArgs e)
         {
+            List<string> historial = gestor.ObtenerHistorial();
+
+            if (historial.Count == 0 )
             {
-                List<string> historial = gestor.ObtenerHistorial();
-
-                if (historial.Count == 0)
-                {
-                    MessageBox.Show("Aún no hay movimientos.", "Historial", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                MessageBox.Show(string.Join("\n", historial), "Historial", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "No hay actividad registrada",
+                    "Historial Vacio",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
             }
-        }
 
+            string mensaje = string.Join("\n", historial);
+
+            MessageBox.Show(
+                mensaje,
+                "Historial",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            return;
+        }
         private void btnRegistrarSalida_Click(object sender, EventArgs e)
         {
             if (dgvVehiculos.SelectedRows.Count == 0)
@@ -446,6 +434,11 @@ namespace GestionVehicular
                 MessageBox.Show("Salida registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
+        
+        // ===== OTROS CONTROLES =====
+        private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarTextBox();
+        }
     }
 }

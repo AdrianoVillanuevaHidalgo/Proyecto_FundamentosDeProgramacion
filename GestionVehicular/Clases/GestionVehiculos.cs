@@ -8,33 +8,32 @@ namespace GestionVehicular
 {
     public class GestionVehiculos
     {
-        private Vehiculo[] vehiculos;
-        public int cantidad { get; private set; }
+        //Propiedades de cualquier instancia de la clase GestionVehiculos
+        private List<Vehiculo> vehiculos;
+        public int cantidad { get { return vehiculos.Count(v => v.HoraSalida == DateTime.MinValue); } }
         public int capacidadMaxima { get; } = 100;
         public int AforoDisponible
         {
             get { return capacidadMaxima - cantidad; }
         }
+        
+        // Metodo constructor de la clase GestionVehiculos
         public GestionVehiculos()
         {
-            vehiculos = new Vehiculo[capacidadMaxima];
-            cantidad = 0;
+            vehiculos = new List<Vehiculo>();
         }
 
-        // Vehiculos que ya se retiraron
-        // Se guardan aca para no perderlos al eliminarlos del arreglo
-        public List<Vehiculo> vehiculosRetirados = new List<Vehiculo>();
 
         // Registrar vehículo
         public bool Registrar(string placa, string codigo, string tipo)
         {
             if (cantidad < capacidadMaxima)
             {
-                vehiculos[cantidad] = new Vehiculo(placa, codigo, tipo);
-                cantidad++;
+                Vehiculo nuevo = new Vehiculo(placa, codigo, tipo);
+                vehiculos.Add(nuevo);
                 return true;
             }
-            return false; // Arreglo lleno
+            return false; // Aforo lleno
         }
 
         // Metodo que busca vehículo por placa
@@ -46,26 +45,31 @@ namespace GestionVehicular
             {
                 return null;
             }
-
-            // recorre las casillas con vehiculos, no las vacias
-            for (int i = 0; i < cantidad; i++)
+            for (int i = 0; i < vehiculos.Count; i++)
             {
-                // compara los textos ignorando mayúsculas
+                if (vehiculos[i].HoraSalida != DateTime.MinValue)
+                {
+                    continue;
+                }
                 if (vehiculos[i].Placa == placa)
                 {
                     return vehiculos[i];
                 }
             }
             return null;
-
         }
 
         // Metodo que busca vehículo por codigo
         // devuelve null si el codigo no esta registrado
         public Vehiculo BuscarPorCodigo(string codigo)
         {
-            for (int i = 0; i < cantidad; i++)
+            for (int i = 0; i < vehiculos.Count ; i++)
             {
+                if (!(vehiculos[i].HoraSalida == DateTime.MinValue))
+                {
+                    continue;
+                }
+                  
                 if (vehiculos[i].Codigo == codigo)
                 {
                     return vehiculos[i];
@@ -75,18 +79,17 @@ namespace GestionVehicular
         }
 
         // Método para obtener todos los vehículos actuales
-        public Vehiculo[] ObtenerVehiculos(out int total)
+        public List<Vehiculo> ObtenerVehiculos()
         {
-            total = cantidad;
             return vehiculos;
         }
 
         // Ordenamiento por Burbuja (segun horas de permanencia)
         public void OrdenarBurbuja()
         {
-            for (int i = 0; i < cantidad - 1; i++)
+            for (int i = 0; i < vehiculos.Count; i++)
             {
-                for (int j = 0; j < cantidad - i - 1; j++)
+                for (int j = 0; j < vehiculos.Count - i - 1; j++)
                 {
                     if (vehiculos[j].HorasEstacionado > vehiculos[j + 1].HorasEstacionado)
                     {
@@ -101,10 +104,15 @@ namespace GestionVehicular
         // Vehículo con mayor tiempo
         public Vehiculo MayorTiempo()
         {
-            if (cantidad == 0) return null;
+            if (vehiculos.Count == 0) return null;
             Vehiculo mayor = vehiculos[0];
-            for (int i = 1; i < cantidad; i++)
+            for (int i = 1; i < vehiculos.Count; i++)
             {
+                if (vehiculos[i].HoraSalida != DateTime.MinValue)
+                {
+                    continue;
+                }
+
                 if (vehiculos[i].HorasEstacionado > mayor.HorasEstacionado)
                 {
                     mayor = vehiculos[i];
@@ -116,10 +124,15 @@ namespace GestionVehicular
         // Vehículo con menor tiempo
         public Vehiculo MenorTiempo()
         {
-            if (cantidad == 0) return null;
+            if (vehiculos.Count == 0) return null;
             Vehiculo menor = vehiculos[0];
-            for (int i = 1; i < cantidad; i++)
+            for (int i = 1; i < vehiculos.Count; i++)
             {
+                if (vehiculos[i].HoraSalida != DateTime.MinValue)
+                {
+                    continue;
+                }
+
                 if (vehiculos[i].HorasEstacionado < menor.HorasEstacionado)
                 {
                     menor = vehiculos[i];
@@ -131,34 +144,28 @@ namespace GestionVehicular
         // Metodo para eliminar un elemento del arreglo Vehiculos segun la fila seleccionada
         public void Eliminar(string codigo)
         {
-            for (int i = 0; i < cantidad; i++)
+            for (int i = 0; i < vehiculos.Count; i++)
             {
-                if (vehiculos[i].Codigo == codigo)
+                if (vehiculos[i].Codigo == codigo && vehiculos[i].HoraSalida == DateTime.MinValue)
                 {
-                    for (int j = i; j < cantidad - 1; j++)
-                    {
-                        vehiculos[j] = vehiculos[j + 1];
-                    }
-
-                    vehiculos[cantidad - 1] = null;
-                    // reduce en 1 la cantidad
-                    cantidad--;
+                    vehiculos.RemoveAt(i);
                     return;
                 }
             }
         }
 
         // Metodo que devuelve un arreglo con los vehiculos que coincidieron con la busqueda
-        public Vehiculo[] BuscarCoincidencias(string texto, bool porPlaca, out int total)
+        public List<Vehiculo> BuscarCoincidencias(string texto, bool porPlaca)
         {
-            // Se crea el arreglo para almacenar las coincidencias
-            // el arreglo tengra la misma longitud que el de las casillas ocupadas en el arreglo Vehiculos
-            Vehiculo[] coincidencias = new Vehiculo[cantidad];
-            total = 0;
+            List<Vehiculo> coincidencias = new List<Vehiculo>();
 
-            for (int i = 0; i < cantidad; i++)
+            for (int i = 0; i < vehiculos.Count; i++)
             {
+                
                 Vehiculo vehiculo = vehiculos[i];
+
+                if (vehiculo.HoraSalida != DateTime.MinValue) continue;
+
                 string dato;
 
                 if (porPlaca)
@@ -176,8 +183,7 @@ namespace GestionVehicular
 
                 if (contieneTexto)
                 {
-                    coincidencias[total] = vehiculo;
-                    total++;
+                    coincidencias.Add(vehiculo);
                 }
             }
             return coincidencias;
@@ -191,62 +197,64 @@ namespace GestionVehicular
         // Metodo que guarda el vehiculo en la lista de retirados y lo quita del arreglo
         public void RegistrarSalida(string codigo)
         {
-            Vehiculo vehiculo = BuscarPorCodigo(codigo);
-
-            vehiculo.HoraSalida = DateTime.Now;
-            vehiculosRetirados.Add(vehiculo);
-
-            Eliminar(codigo);
+            foreach (Vehiculo v in vehiculos)
+            {
+                if (v.HoraSalida != DateTime.MinValue)
+                {
+                    continue;
+                }
+                if (v.Codigo == codigo)
+                {
+                    v.HoraSalida = DateTime.Now;
+                    return;
+                }
+            }
         }
 
         // Metodo que arma el historial completo, ordenado por hora
         public List<string> ObtenerHistorial()
         {
             List<DateTime> horas = new List<DateTime>();
-            List<string> textos = new List<string>();
-
-            // Vehiculos que siguen dentro: solo su ingreso
-            for (int i = 0; i < cantidad; i++)
+            List<string> acciones = new List<string>();
+            List<string> historial = new List<string>();
+            
+            // Se arma las listas paralelas(horas y acciones)
+            for (int i = 0; i < vehiculos.Count; i++)
             {
                 horas.Add(vehiculos[i].HoraIngreso);
-                textos.Add(CrearTexto(vehiculos[i], "ha ingresado al estacionamiento"));
-            }
+                acciones.Add(CrearTexto(vehiculos[i], "ha ingresado."));
 
-            // Vehiculos retirados: su ingreso y su salida
-            foreach (Vehiculo vehiculo in vehiculosRetirados)
-            {
-                horas.Add(vehiculo.HoraIngreso);
-                textos.Add(CrearTexto(vehiculo, "ha ingresado al estacionamiento"));
-
-                horas.Add(vehiculo.HoraSalida);
-                textos.Add(CrearTexto(vehiculo, "se ha retirado del estacionamiento"));
-            }
-
-            // Burbuja por hora: cada vez que se intercambia una hora, se intercambia tambien su texto
-            for (int i = 0; i < horas.Count - 1; i++)
-            {
-                for (int j = 0; j < horas.Count - i - 1; j++)
+                if (vehiculos[i].HoraSalida != DateTime.MinValue)
                 {
-                    if (horas[j] > horas[j + 1])
+                    horas.Add(vehiculos[i].HoraSalida);
+                    acciones.Add(CrearTexto(vehiculos[i], "se ha retirado."));
+                }
+            }
+
+            // Se ordenan las listas paralelas segun la hora 
+            for (int i = 0;i < horas.Count;i++)
+            {
+                for (int j = 0; j < acciones.Count - i - 1; j++)
+                {
+                    if (horas[j] > horas[j+1])
                     {
                         DateTime auxHora = horas[j];
                         horas[j] = horas[j + 1];
                         horas[j + 1] = auxHora;
 
-                        string auxTexto = textos[j];
-                        textos[j] = textos[j + 1];
-                        textos[j + 1] = auxTexto;
+                        string auxAccion = acciones[j];
+                        acciones[j] = acciones[j + 1];
+                        acciones[j + 1] = auxAccion;
                     }
                 }
             }
 
-            // Convierte cada par hora/texto en una linea
-            List<string> lineas = new List<string>();
-            for (int i = 0; i < horas.Count; i++)
+            // Se arma la lista que se devolvera mediante este metodo
+            for (int i =0; i < horas.Count; i++)
             {
-                lineas.Add($"- {horas[i]:hh:mm tt} {textos[i]}");
+                historial.Add($"[{horas[i]}] {acciones[i]}");
             }
-            return lineas;
+            return historial;
         }
 
         // Metodo para modificar una instacia de la clase vehiculo
