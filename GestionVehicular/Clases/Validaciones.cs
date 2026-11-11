@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GestionVehicular
 {
@@ -62,5 +63,40 @@ namespace GestionVehicular
             }
             return true;
         }
+        public static bool PlacaEstaDentro(string placa, List<Vehiculo> lista)
+        {
+            if (placa == "No aplica")
+            {
+                return false;
+            }
+
+            foreach (Vehiculo v in lista)
+            {
+                if (v.Placa == placa)
+                {
+                    if (v.HoraSalida == DateTime.MinValue)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool CodigoEstaDentro(string codigo, List<Vehiculo> lista)
+        {
+            foreach (Vehiculo v in lista)
+            {
+                if (v.Codigo == codigo)
+                {
+                    if (v.HoraSalida == DateTime.MinValue)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }
