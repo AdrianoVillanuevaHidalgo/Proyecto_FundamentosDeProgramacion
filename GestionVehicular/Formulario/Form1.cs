@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace GestionVehicular
 {
@@ -163,9 +164,23 @@ namespace GestionVehicular
         }
         private void btnBurbuja_Click(object sender, EventArgs e)
         {
+            List<Vehiculo> lista = gestor.ObtenerVehiculos();
+            if (lista.Count() == 0)
+            {
+                MessageBox.Show(
+                    "No hay vehículos registrados.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
             gestor.OrdenarBurbuja();
             ActualizarGrid();
-            MessageBox.Show("Vehículos ordenados por hora.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(
+                "Vehículos ordenados por hora.", 
+                "Información",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
         private void btnCargarDatos_Click(object sender, EventArgs e)
         {
@@ -208,11 +223,19 @@ namespace GestionVehicular
             Vehiculo v = gestor.MayorTiempo();
             if (v != null)
             {
-                MessageBox.Show($"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nCodigo: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    $"Vehículo con Mayor Tiempo:\nPlaca: {v.Placa}\nCodigo: {v.Codigo}\nTipo de Vehiculo: {v.TipoVehiculo}\nHoras: {v.HorasEstacionado:F2} hrs",
+                    "Reporte",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("No hay vehículos registrados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "No hay vehículos registrados.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
         private void btnMenorTiempo_Click(object sender, EventArgs e)
@@ -434,11 +457,38 @@ namespace GestionVehicular
                 MessageBox.Show("Salida registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        private void btnExportarHistorial_Click(object sender, EventArgs e)
+        {
+            List<string> historial = gestor.ObtenerHistorial();
+
+            if (historial.Count == 0)
+            {
+                MessageBox.Show(
+                    "No hay actividad registrada",
+                    "Historial Vacio",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            string mensaje = string.Join("\n", historial);
+            File.WriteAllText($"Historial_{DateTime.Today:yyyy-MM-dd}.txt", mensaje);
+
+            string ruta = Path.GetFullPath($"Historial_{DateTime.Today:yyyy-MM-dd}.txt");
+
+            MessageBox.Show(
+                $"El historial quedo guardado en:\n{ruta}",
+                "Exportación exitosa",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            return;
+        }
         
         // ===== OTROS CONTROLES =====
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             ActualizarTextBox();
         }
+
     }
 }

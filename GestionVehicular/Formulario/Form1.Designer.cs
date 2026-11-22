@@ -56,9 +56,10 @@ namespace GestionVehicular
             this.cboBuscarPor = new System.Windows.Forms.ComboBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.btnCargarDatos = new System.Windows.Forms.Button();
             this.btnPegar = new System.Windows.Forms.Button();
+            this.btnExportarHistorial = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnCargarDatos = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).BeginInit();
             this.SuspendLayout();
@@ -67,7 +68,7 @@ namespace GestionVehicular
             // 
             this.lblTitulo.BackColor = System.Drawing.Color.Gold;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 20F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.Location = new System.Drawing.Point(12, 12);
+            this.lblTitulo.Location = new System.Drawing.Point(12, 10);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(496, 45);
             this.lblTitulo.TabIndex = 0;
@@ -134,10 +135,11 @@ namespace GestionVehicular
             // 
             // btnBurbuja
             // 
+            this.btnBurbuja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBurbuja.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBurbuja.Location = new System.Drawing.Point(500, 143);
             this.btnBurbuja.Name = "btnBurbuja";
-            this.btnBurbuja.Size = new System.Drawing.Size(217, 48);
+            this.btnBurbuja.Size = new System.Drawing.Size(217, 51);
             this.btnBurbuja.TabIndex = 5;
             this.btnBurbuja.Text = "Ordenar";
             this.btnBurbuja.UseVisualStyleBackColor = true;
@@ -145,6 +147,7 @@ namespace GestionVehicular
             // 
             // btnMayorTiempo
             // 
+            this.btnMayorTiempo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMayorTiempo.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMayorTiempo.Location = new System.Drawing.Point(26, 645);
             this.btnMayorTiempo.Name = "btnMayorTiempo";
@@ -156,6 +159,7 @@ namespace GestionVehicular
             // 
             // btnMenorTiempo
             // 
+            this.btnMenorTiempo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMenorTiempo.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMenorTiempo.Location = new System.Drawing.Point(257, 645);
             this.btnMenorTiempo.Name = "btnMenorTiempo";
@@ -171,6 +175,9 @@ namespace GestionVehicular
             this.dgvVehiculos.AllowUserToDeleteRows = false;
             this.dgvVehiculos.AllowUserToResizeColumns = false;
             this.dgvVehiculos.AllowUserToResizeRows = false;
+            this.dgvVehiculos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvVehiculos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVehiculos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVehiculos.Location = new System.Drawing.Point(26, 430);
@@ -186,16 +193,17 @@ namespace GestionVehicular
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gold;
-            this.panel1.Location = new System.Drawing.Point(-3, -12);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(754, 109);
+            this.panel1.Size = new System.Drawing.Size(745, 92);
             this.panel1.TabIndex = 12;
             // 
             // lblTitulo2
             // 
             this.lblTitulo2.BackColor = System.Drawing.Color.Gold;
             this.lblTitulo2.Font = new System.Drawing.Font("Arial", 15F);
-            this.lblTitulo2.Location = new System.Drawing.Point(82, 47);
+            this.lblTitulo2.Location = new System.Drawing.Point(82, 45);
             this.lblTitulo2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitulo2.Name = "lblTitulo2";
             this.lblTitulo2.Size = new System.Drawing.Size(358, 45);
@@ -205,9 +213,10 @@ namespace GestionVehicular
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.Gold;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(498, 25);
+            this.label2.Location = new System.Drawing.Point(498, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(236, 26);
             this.label2.TabIndex = 16;
@@ -216,9 +225,10 @@ namespace GestionVehicular
             // 
             // lblAforo
             // 
+            this.lblAforo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAforo.BackColor = System.Drawing.Color.Gold;
             this.lblAforo.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.lblAforo.Location = new System.Drawing.Point(512, 57);
+            this.lblAforo.Location = new System.Drawing.Point(512, 53);
             this.lblAforo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAforo.Name = "lblAforo";
             this.lblAforo.Size = new System.Drawing.Size(209, 24);
@@ -253,7 +263,7 @@ namespace GestionVehicular
             this.btnModificar.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificar.Location = new System.Drawing.Point(26, 325);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(291, 48);
+            this.btnModificar.Size = new System.Drawing.Size(291, 51);
             this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -261,6 +271,7 @@ namespace GestionVehicular
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(511, 105);
@@ -272,10 +283,11 @@ namespace GestionVehicular
             // 
             // btnEliminar
             // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEliminar.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.Location = new System.Drawing.Point(500, 205);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(217, 48);
+            this.btnEliminar.Size = new System.Drawing.Size(217, 51);
             this.btnEliminar.TabIndex = 5;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
@@ -283,10 +295,11 @@ namespace GestionVehicular
             // 
             // btnRegistrarSalida
             // 
+            this.btnRegistrarSalida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRegistrarSalida.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegistrarSalida.Location = new System.Drawing.Point(501, 267);
             this.btnRegistrarSalida.Name = "btnRegistrarSalida";
-            this.btnRegistrarSalida.Size = new System.Drawing.Size(217, 48);
+            this.btnRegistrarSalida.Size = new System.Drawing.Size(216, 51);
             this.btnRegistrarSalida.TabIndex = 5;
             this.btnRegistrarSalida.Text = "Registrar Salida";
             this.btnRegistrarSalida.UseVisualStyleBackColor = true;
@@ -294,10 +307,11 @@ namespace GestionVehicular
             // 
             // btnVerHistorial
             // 
+            this.btnVerHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerHistorial.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVerHistorial.Location = new System.Drawing.Point(501, 329);
             this.btnVerHistorial.Name = "btnVerHistorial";
-            this.btnVerHistorial.Size = new System.Drawing.Size(217, 48);
+            this.btnVerHistorial.Size = new System.Drawing.Size(156, 51);
             this.btnVerHistorial.TabIndex = 5;
             this.btnVerHistorial.Text = "Ver Historial";
             this.btnVerHistorial.UseVisualStyleBackColor = true;
@@ -333,18 +347,6 @@ namespace GestionVehicular
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // btnCargarDatos
-            // 
-            this.btnCargarDatos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnCargarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCargarDatos.Image = global::GestionVehicular.Properties.Resources.lapiz_20;
-            this.btnCargarDatos.Location = new System.Drawing.Point(606, 645);
-            this.btnCargarDatos.Name = "btnCargarDatos";
-            this.btnCargarDatos.Size = new System.Drawing.Size(51, 51);
-            this.btnCargarDatos.TabIndex = 4;
-            this.btnCargarDatos.UseVisualStyleBackColor = true;
-            this.btnCargarDatos.Click += new System.EventHandler(this.btnCargarDatos_Click);
-            // 
             // btnPegar
             // 
             this.btnPegar.BackgroundImage = global::GestionVehicular.Properties.Resources.Pegar_20;
@@ -356,6 +358,19 @@ namespace GestionVehicular
             this.btnPegar.TabIndex = 9;
             this.btnPegar.UseVisualStyleBackColor = true;
             this.btnPegar.Click += new System.EventHandler(this.btnPegar_Click);
+            // 
+            // btnExportarHistorial
+            // 
+            this.btnExportarHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportarHistorial.BackgroundImage = global::GestionVehicular.Properties.Resources.exportar_20;
+            this.btnExportarHistorial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnExportarHistorial.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportarHistorial.Location = new System.Drawing.Point(664, 329);
+            this.btnExportarHistorial.Name = "btnExportarHistorial";
+            this.btnExportarHistorial.Size = new System.Drawing.Size(53, 51);
+            this.btnExportarHistorial.TabIndex = 9;
+            this.btnExportarHistorial.UseVisualStyleBackColor = true;
+            this.btnExportarHistorial.Click += new System.EventHandler(this.btnExportarHistorial_Click);
             // 
             // btnLimpiar
             // 
@@ -369,8 +384,22 @@ namespace GestionVehicular
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // btnCargarDatos
+            // 
+            this.btnCargarDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCargarDatos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnCargarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCargarDatos.Image = global::GestionVehicular.Properties.Resources.lapiz_20;
+            this.btnCargarDatos.Location = new System.Drawing.Point(606, 645);
+            this.btnCargarDatos.Name = "btnCargarDatos";
+            this.btnCargarDatos.Size = new System.Drawing.Size(51, 51);
+            this.btnCargarDatos.TabIndex = 4;
+            this.btnCargarDatos.UseVisualStyleBackColor = true;
+            this.btnCargarDatos.Click += new System.EventHandler(this.btnCargarDatos_Click);
+            // 
             // btnActualizar
             // 
+            this.btnActualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnActualizar.BackgroundImage = global::GestionVehicular.Properties.Resources.actualizar_20;
             this.btnActualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -400,6 +429,7 @@ namespace GestionVehicular
             this.Controls.Add(this.txtPlaca);
             this.Controls.Add(this.dgvVehiculos);
             this.Controls.Add(this.btnPegar);
+            this.Controls.Add(this.btnExportarHistorial);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnMenorTiempo);
             this.Controls.Add(this.lblTipo);
@@ -460,6 +490,7 @@ namespace GestionVehicular
         private TextBox txtBuscar;
         private Button btnBuscar;
         private Button btnCargarDatos;
+        private Button btnExportarHistorial;
     }
 }
 
