@@ -147,7 +147,11 @@ namespace GestionVehicular
 
             if (Validaciones.EntradaVacia(texto))
             {
-                MessageBox.Show("Escriba el texto a buscar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "Escriba el texto a buscar.",
+                    "Advertencia",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 txtBuscar.Focus();
                 return;
             }
@@ -159,7 +163,11 @@ namespace GestionVehicular
 
             if (resultado.Count == 0)
             {
-                MessageBox.Show("No se encontraron vehículos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "No se encontraron vehículos.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
         }
         private void btnBurbuja_Click(object sender, EventArgs e)
@@ -320,7 +328,7 @@ namespace GestionVehicular
             {
                 if (dgvVehiculos.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Seleccione en la tabla, el vehículo que desea modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Seleccione en la tabla, el vehículo del que desea pegar sus datos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -341,7 +349,7 @@ namespace GestionVehicular
 
             // Datos actuales del vehiculo seleccionado
             DataGridViewRow fila = dgvVehiculos.SelectedRows[0];
-            string idOriginal = fila.Cells["codigo"].Value.ToString();
+            string codigoOriginal = fila.Cells["codigo"].Value.ToString();
             string placaOriginal = fila.Cells["Placa"].Value.ToString();
             string tipoOriginal = fila.Cells["Tipo de Vehiculo"].Value.ToString();
 
@@ -378,14 +386,14 @@ namespace GestionVehicular
 
             // La placa y el codigo no deben pertenecer a OTRO vehiculo
             Vehiculo conMismaPlaca = gestor.BuscarPorPlaca(placa);
-            if (conMismaPlaca != null && conMismaPlaca.Codigo != idOriginal)
+            if (conMismaPlaca != null && conMismaPlaca.Codigo != codigoOriginal)
             {
                 MessageBox.Show("Esa placa ya está registrada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             Vehiculo conMismoID = gestor.BuscarPorCodigo(codigo);
-            if (conMismoID != null && codigo != idOriginal)
+            if (conMismoID != null && codigo != codigoOriginal)
             {
                 MessageBox.Show("Ese código ya está registrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -394,7 +402,7 @@ namespace GestionVehicular
             // Confirmacion mostrando el antes y despues
             DialogResult respuesta = MessageBox.Show(
                 $"¿Está seguro de modificar el vehículo?\n\n" +
-                $"ANTES\nPlaca: {placaOriginal}\nID: {idOriginal}\nTipo de Vehiculo: {tipoOriginal}\n\n" +
+                $"ANTES\nPlaca: {placaOriginal}\nID: {codigoOriginal}\nTipo de Vehiculo: {tipoOriginal}\n\n" +
                 $"DESPUÉS\nPlaca: {placa}\nID: {codigo}\nTipo de Vehiculo: {tipo}",
                 "Confirmar modificación",
                 MessageBoxButtons.YesNo,
@@ -402,7 +410,7 @@ namespace GestionVehicular
 
             if (respuesta == DialogResult.Yes)
             {
-                gestor.Modificar(idOriginal, placa, codigo, tipo);
+                gestor.Modificar(codigoOriginal, placa, codigo, tipo);
                 ActualizarGrid();
                 LimpiarCampos();
                 MessageBox.Show("Vehículo modificado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);

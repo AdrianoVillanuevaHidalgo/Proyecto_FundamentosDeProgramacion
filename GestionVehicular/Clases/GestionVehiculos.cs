@@ -36,46 +36,40 @@ namespace GestionVehicular
             return false; // Aforo lleno
         }
 
-        // Metodo que busca vehículo por placa
+        // Metodo RECURSIVO que busca un vehículo por placa
         // devuelve null si la placa no esta registrada o si es "no aplica"
-        public Vehiculo BuscarPorPlaca(string placa)
+        public Vehiculo BuscarPorPlaca(string placa, int indice = 0)
         {
             // no se considera "No aplica", ya que varios vehiculos pueden compartir esa "placa"
-            if (placa == "No aplica")
+            if (placa == "No aplica" || indice >= vehiculos.Count)
             {
                 return null;
             }
-            for (int i = 0; i < vehiculos.Count; i++)
+
+            Vehiculo v = vehiculos[indice];
+            if (v.HoraSalida == DateTime.MinValue && v.Placa == placa)
             {
-                if (vehiculos[i].HoraSalida != DateTime.MinValue)
-                {
-                    continue;
-                }
-                if (vehiculos[i].Placa == placa)
-                {
-                    return vehiculos[i];
-                }
+                return v;
             }
-            return null;
+            return BuscarPorPlaca(placa, indice + 1);
         }
 
-        // Metodo que busca vehículo por codigo
+        // Metodo RECURSIVO que busca un vehículo por codigo
         // devuelve null si el codigo no esta registrado
-        public Vehiculo BuscarPorCodigo(string codigo)
+        public Vehiculo BuscarPorCodigo(string codigo, int indice = 0)
         {
-            for (int i = 0; i < vehiculos.Count ; i++)
+            if (indice >= vehiculos.Count)
             {
-                if (!(vehiculos[i].HoraSalida == DateTime.MinValue))
-                {
-                    continue;
-                }
-                  
-                if (vehiculos[i].Codigo == codigo)
-                {
-                    return vehiculos[i];
-                }
+                return null;
             }
-            return null;
+
+            Vehiculo v = vehiculos[indice];
+            if (v.HoraSalida == DateTime.MinValue && v.Codigo == codigo)
+            {
+                return v;
+            }
+
+            return BuscarPorCodigo(codigo, indice + 1);
         }
 
         // Método para obtener todos los vehículos actuales
