@@ -209,7 +209,7 @@ namespace GestionVehicular
                 string tipo = fila.Cells["Tipo de Vehiculo"].Value.ToString();
 
                 DialogResult respuesta = MessageBox.Show(
-                    $"¿Está seguro de eliminar el vehículo?\n\nPlaca: {placa}\nID: {codigo}\nTipo de Vehiculo: {tipo}",
+                    $"¿Está seguro de eliminar el vehículo?\n\nPlaca: {placa}\nCódigo: {codigo}\nTipo de Vehiculo: {tipo}",
                     "Confirmar eliminación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
@@ -402,8 +402,8 @@ namespace GestionVehicular
             // Confirmacion mostrando el antes y despues
             DialogResult respuesta = MessageBox.Show(
                 $"¿Está seguro de modificar el vehículo?\n\n" +
-                $"ANTES\nPlaca: {placaOriginal}\nID: {codigoOriginal}\nTipo de Vehiculo: {tipoOriginal}\n\n" +
-                $"DESPUÉS\nPlaca: {placa}\nID: {codigo}\nTipo de Vehiculo: {tipo}",
+                $"ANTES\nPlaca: {placaOriginal}\nCódigo: {codigoOriginal}\nTipo de Vehiculo: {tipoOriginal}\n\n" +
+                $"DESPUÉS\nPlaca: {placa}\nCódigo: {codigo}\nTipo de Vehiculo: {tipo}",
                 "Confirmar modificación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -453,7 +453,7 @@ namespace GestionVehicular
             string tipo = fila.Cells["Tipo de Vehiculo"].Value.ToString();
 
             DialogResult respuesta = MessageBox.Show(
-                $"¿Registrar la salida del vehículo?\n\nPlaca: {placa}\nID: {codigo}\nTipo de Vehiculo: {tipo}",
+                $"¿Registrar la salida del vehículo?\n\nPlaca: {placa}\nCódigo: {codigo}\nTipo de Vehiculo: {tipo}",
                 "Confirmar salida",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
