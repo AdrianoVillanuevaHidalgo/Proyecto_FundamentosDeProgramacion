@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace GestionVehicular
 {
     public class GestionVehiculos
@@ -34,6 +34,94 @@ namespace GestionVehicular
                 return true;
             }
             return false; // Aforo lleno
+        }
+
+        // Importar datos de un archivo txt o csv
+        public bool Importar(string ruta, ref int totalLeidos, out int totalImportado, out int totalOmitido)
+        {
+
+            totalImportado = 0;
+            totalOmitido = 0;
+
+            if (!File.Exists(ruta))
+            {
+                return false;
+            }
+
+            using (StreamReader lector = new StreamReader(ruta))
+            {
+                string linea;
+                while ((linea = lector.ReadLine()) != null)
+                {
+                    if (string.IsNullOrWhiteSpace(linea))
+                    {
+                        continue;
+                    }
+
+                    totalLeidos++;
+
+                    if (cantidad >= capacidadMaxima)
+                    {
+                        totalOmitido++;
+                        continue;
+                    }
+
+                    string[] partes = linea.Split(new char[] { '|', ',', ';' });
+
+                    if (partes.Length != 3)
+                    {
+                        totalOmitido++;
+                        continue;
+                    }
+
+                    string placa = partes[0].Trim();
+                    string codigo = partes[1].Trim().ToUpper();
+                    string _tipo = partes[2].Trim().ToLower();
+                    string tipo = "";
+
+                    if (_tipo == "auto") tipo = "Auto";
+                    else if (_tipo == "moto") tipo = "Moto";
+                    else if (_tipo == "camioneta") tipo = "Camioneta";
+                    else if (_tipo == "bicicleta") tipo = "Bicicleta";
+                    else if (_tipo == "scooter") tipo = "Scooter";
+                    else
+                    {
+                        totalOmitido++;
+                        continue;
+                    }
+
+                    if (tipo == "Bicicleta" || tipo == "Scooter")
+                    {
+                        placa = "No aplica";
+                    }
+                    else
+                    {
+                        placa = placa.ToUpper();
+                        if (!Validaciones.ValidarPlaca(placa))
+                        {
+                            totalOmitido++;
+                            continue;
+                        }
+                    }
+
+                    if (!Validaciones.ValidarCodigo(codigo) || Validaciones.PlacaEstaDentro(placa, vehiculos) || Validaciones.CodigoEstaDentro(codigo, vehiculos))
+                    {
+                        totalOmitido++;
+                        continue;
+                    }
+
+                    if (Registrar(placa, codigo, tipo))
+                    {
+                        totalImportado++;
+                    }
+                    else
+                    {
+                        totalOmitido++;
+                    }
+                }
+            }
+
+            return true;
         }
 
         // Metodo RECURSIVO que busca un vehículo por placa

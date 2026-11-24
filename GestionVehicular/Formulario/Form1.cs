@@ -498,5 +498,43 @@ namespace GestionVehicular
             ActualizarTextBox();
         }
 
+        private void btnImportar_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ventana = new OpenFileDialog())
+            {
+                ventana.Title = "Seleccionar archivo de vehiculos";
+                ventana.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
+
+                if (ventana.ShowDialog() == DialogResult.OK)
+                {
+                    int lineas = 0;
+
+                    bool importar = gestor.Importar(
+                        ventana.FileName,
+                        ref lineas,
+                        out int importados,
+                        out int omitidos
+                    );
+
+                    if (importar)
+                    {
+                        ActualizarGrid();
+                        MessageBox.Show(
+                            $"Importacion finalizado:\n\n" +
+                            $"• Lineas leidas del archivo: {lineas}\n" +
+                            $"• Vehiculos importados: {importados}\n" +
+                            $"• Registros omitidos (invalidos o duplicados): {omitidos}",
+                            "Importacion de Datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo abrir el archivo seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
     }
 }

@@ -61,6 +61,7 @@ namespace GestionVehicular
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCargarDatos = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.btnImportar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehiculos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -410,12 +411,24 @@ namespace GestionVehicular
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
+            // btnImportar
+            // 
+            this.btnImportar.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.btnImportar.Location = new System.Drawing.Point(323, 145);
+            this.btnImportar.Name = "btnImportar";
+            this.btnImportar.Size = new System.Drawing.Size(171, 49);
+            this.btnImportar.TabIndex = 24;
+            this.btnImportar.Text = "Importar datos";
+            this.btnImportar.UseVisualStyleBackColor = true;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
             this.ClientSize = new System.Drawing.Size(745, 708);
+            this.Controls.Add(this.btnImportar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.cboBuscarPor);
@@ -491,6 +504,7 @@ namespace GestionVehicular
         private Button btnBuscar;
         private Button btnCargarDatos;
         private Button btnExportarHistorial;
+        private Button btnImportar;
     }
 }
 
